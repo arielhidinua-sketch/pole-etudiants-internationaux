@@ -1,101 +1,52 @@
-# Pôle des Étudiants Internationaux · AEPUD — IUT de Saint-Dié
+# Pôle des Étudiants Internationaux · AEPUD — IUT de Saint-Dié-des-Vosges
 
-Landing page moderne, bilingue (**Français / Anglais**, avec architecture multilingue prête incluant le Portugais) et responsive conçue pour le **Pôle des Étudiants Internationaux** de l’**Association des Étudiants (AEPUD)** de l’IUT de Saint-Dié-des-Vosges.
+Site officiel bilingue (**Français / Anglais**) et responsive du **Pôle des Étudiants Internationaux** de l’**Association des Étudiants (AEPUD)** de l’IUT de Saint-Dié-des-Vosges.
 
 ---
 
-## Structure du projet
+## Architecture & Organisation
 
 ```text
 poleetu inter/
-├── index.html                  # Structure sémantique principale et modales interactives
+├── index.html                  # Interface publique structurée (6 sections + section phare questionnaire + modale)
+├── vercel.json                 # Configuration de déploiement statique Vercel & en-têtes de sécurité
 ├── css/
-│   ├── variables.css           # Palette (Blanc & Violet AEPUD), typographies, espacements
-│   ├── styles.css              # Design éditorial, composants, animations & lightbox
-│   └── responsive.css          # Adaptation Tablette, Mobile & Smartphones
+│   ├── variables.css           # Design tokens (Blanc éditorial & Violet profond AEPUD)
+│   ├── styles.css              # Composants, typographies, cartes, section questionnaire & modale
+│   └── responsive.css          # Adaptation fluide (Desktop, Tablette & Mobile)
 ├── js/
-│   ├── content.js              # FICHIER UNIQUE À ÉDITER (liens, équipe, événements, textes FR/EN/PT)
-│   └── main.js                 # Changement de langue, galerie, filtres et interactions
+│   ├── content.js              # Données publiques centralisées & traductions FR / EN
+│   └── main.js                 # Changement de langue instantané, modale « Rejoindre » & navigation
 └── assets/
     ├── icons/
     │   └── logo-pole.svg       # Emblème vectoriel du Pôle
-    └── images/                 # Portraits remplaçables & visuels temporaires de la galerie
+    └── images/
+        ├── logo-aepud.png      # Emplacement dédié au logotype officiel de l'AEPUD (activé automatiquement dès présence du fichier)
+        ├── ariel-hidinua.jpg   # Portrait officiel — Ariel Hidinua
+        ├── credo-charles.jpg   # Portrait officiel — Credo Charles
+        ├── hero-international-community.svg # Illustration éditoriale internationale (Accueil)
+        └── survey-voice-illustration.svg    # Illustration participation étudiante (Questionnaire)
 ```
 
 ---
 
-## Guide rapide de mise à jour (pour les responsables du Pôle)
+## Ordre des sections publiques
 
-Toutes les données modifiables sont centralisées dans **`js/content.js`** — vous n'avez pas besoin de modifier `index.html` ni le CSS.
-
-### 1. Connecter votre Google Forms
-Dans `js/content.js`, remplacez `[GOOGLE_FORMS_URL]` par l’adresse réelle de votre formulaire :
-```js
-googleFormsUrl: "https://forms.gle/VOTRE_LIEN_ICI",
-```
-Dès que ce lien est renseigné, les boutons **« PARTAGER MES BESOINS »** et **« REJOINDRE LE PÔLE »** l’ouvrent directement dans un nouvel onglet sécurisé (avec un paramètre `?source=needs` ou `?source=join`).
-
-### 2. Ajouter les photos et informations des 2 représentants
-Deux méthodes simples :
-1. **Depuis le navigateur :** cliquez sur **« Personnaliser les profils »** dans la section *Notre Équipe* pour sélectionner vos portraits, saisir vos textes, vérifier le rendu en direct, puis cliquez sur **« Copier le code pour content.js »**.
-2. **Directement dans `js/content.js` :** déposez vos photos dans `assets/images/` (ex. `rep-1.jpg`, `rep-2.jpg`) et mettez à jour le tableau `team` :
-```js
-team: [
-  {
-    id: "rep-1",
-    photo: "assets/images/rep-1.jpg",
-    isPlaceholderPhoto: false,
-    name: "Prénom Nom",
-    roleKey: "teamRoleDefault",
-    bio: "Étudiant(e) à l'IUT de Saint-Dié...",
-    contact: "prenom.nom@etu.univ-lorraine.fr"
-  },
-  // ... Représentant 2
-]
-```
-
-### 3. Publier un événement ou une activité
-Dans `js/content.js`, remplissez le tableau `events` (tant qu'il est vide `[]`, un message d'attente élégant s'affiche automatiquement) :
-```js
-events: [
-  {
-    id: "evt-1",
-    image: "assets/images/cafe-accueil.jpg",
-    status: "upcoming", // "upcoming" (À venir) ou "past" (Terminé)
-    title: {
-      fr: "Café d’accueil international",
-      en: "International Welcome Coffee"
-    },
-    description: {
-      fr: "Un premier moment convivial pour faire connaissance autour d'un café.",
-      en: "A warm first meetup to get to know each other over coffee."
-    },
-    date: "Jeudi 15 octobre · 17h30",
-    location: "Foyer AEPUD — IUT de Saint-Dié"
-  }
-],
-```
-
-### 4. Renseigner l’e-mail officiel et Instagram
-Dans `js/content.js`, complétez l’objet `contact` :
-```js
-contact: {
-  association: "Association des Étudiants (AEPUD) — IUT de Saint-Dié",
-  pole: "Pôle des Étudiants Internationaux",
-  email: "pole.international@exemple.fr",
-  instagram: "@votre_compte_instagram",
-  otherNetwork: "https://discord.gg/...",
-  location: "IUT de Saint-Dié-des-Vosges · 11 Rue de l’Université, 88100 Saint-Dié-des-Vosges"
-}
-```
-
-### 5. Remplacer les images temporaires de la galerie
-Placez vos vraies photos dans `assets/images/`, mettez à jour `src` dans `gallery` (`js/content.js`) et passez `isTemporary: false` pour retirer automatiquement le badge *« Visuel temporaire · À remplacer »*.
+1. **Accueil (`#accueil`)** — Proposition de valeur, illustration éditoriale internationale et appels à l’action.
+2. **Notre équipe (`#notre-equipe`)** — Présentation immédiate des deux représentants (*Ariel Hidinua* et *Credo Charles*) et de leurs contacts universitaires directs (`mailto:`).
+3. **Présentation du pôle (`#le-pole`)** — Mission, public concerné et engagements.
+4. **Nos initiatives (`#nos-initiatives`)** — Les 5 piliers d’action du pôle et l’agenda des prochaines activités.
+5. **Ressources et accompagnement (`#ressources`)** — Portails officiels utiles (logement, santé/ANEF, études, vie à Saint-Dié) et relais d’entraide étudiante.
+6. **Section phare Questionnaire (`#questionnaire`)** — Consultation officielle Google Forms (`https://forms.gle/CHkm3dPJak6t5zyA7`).
+7. **Contact / Rejoindre le pôle (`#contact` & `#join-modal`)** — Instagram officiel `@AEPUD` (`https://www.instagram.com/AEPUD/`), campus et contacts directs des représentants.
 
 ---
 
-## Lancer le site en local
+## Sécurité & Séparation Public / Administration
 
-Aucun outil de compilation n'est requis :
-- Ouvrez directement `index.html` dans n'importe quel navigateur moderne (Chrome, Edge, Firefox, Safari) ;
-- Ou utilisez un serveur local léger (ex. extension *Live Server* sur VS Code ou `npx serve .`).
+Aucune fonctionnalité d’édition ou d’administration n’est exposée sur l’interface publique. Toute mise à jour de contenu s’effectue exclusivement par modification contrôlée du dépôt Git privé/autorisé (`main` → déploiement automatique Vercel).
+
+## Développement local & Vérification
+
+- Ouvrir `index.html` dans un navigateur moderne ou lancer `npx serve .` ;
+- Vérifier la syntaxe JavaScript : `npm run build`.

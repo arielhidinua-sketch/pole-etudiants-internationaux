@@ -1,7 +1,8 @@
 /**
  * ============================================================================
- * LOGIQUE INTERACTIVE PRINCIPALE — js/main.js
- * Pôle des Étudiants Internationaux · AEPUD — IUT de Saint-Dié
+ * LOGIQUE INTERACTIVE PUBLIQUE — js/main.js
+ * Pôle des Étudiants Internationaux · AEPUD — IUT de Saint-Dié-des-Vosges
+ * Interface strictement publique (Français / Anglais)
  * ============================================================================
  */
 
@@ -11,19 +12,13 @@
   const config = window.SITE_CONFIG;
   const translations = window.TRANSLATIONS;
 
-  // État courant de l'application
   const state = {
     lang: getInitialLanguage(),
-    eventFilter: "all",
-    lightboxIndex: 0,
-    activeRepTab: 0,
-    lastFocusedElement: null,
-    customFormsUrl: sessionStorage.getItem("pole_preview_forms_url") || "",
-    teamData: loadTeamState()
+    lastFocusedElement: null
   };
 
   /* --------------------------------------------------------------------------
-     UTILITAIRES D'ÉTAT & SÉCURITÉ D'AFFICHAGE
+     UTILITAIRES DE LANGUE & D'ÉCHAPPEMENT HTML
      -------------------------------------------------------------------------- */
 
   function getInitialLanguage() {
@@ -33,24 +28,9 @@
         return saved;
       }
     } catch (_) {
-      /* Accès stockage restreint : repli sur langue par défaut */
+      /* Accès stockage restreint : repli sur le français */
     }
     return config.defaultLanguage || "fr";
-  }
-
-  function loadTeamState() {
-    try {
-      const saved = sessionStorage.getItem("pole_team_preview_v2");
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length === 2) {
-          return parsed;
-        }
-      }
-    } catch (_) {
-      /* Ignorer erreur JSON */
-    }
-    return JSON.parse(JSON.stringify(config.team));
   }
 
   function t(key) {
@@ -74,50 +54,43 @@
       .replace(/'/g, "&#039;");
   }
 
-  function isPlaceholderValue(val) {
-    const resolved = resolveLocalizedValue(val);
-    if (!resolved) return true;
-    const trimmed = String(resolved).trim();
-    return (
-      trimmed === "" ||
-      trimmed === "[À RENSEIGNER]" ||
-      trimmed === "[TO BE COMPLETED]" ||
-      trimmed === "[A PREENCHER]" ||
-      trimmed === "[GOOGLE_FORMS_URL]"
-    );
-  }
-
-  function formatDisplayValue(val) {
-    const resolved = resolveLocalizedValue(val);
-    return isPlaceholderValue(resolved) ? t("placeholderText") : resolved;
-  }
-
   /* --------------------------------------------------------------------------
-     NOTIFICATIONS VISUELLES (TOAST)
+     INTÉGRATION DU LOGOTYPE OFFICIEL AEPUD (AVEC VÉRIFICATION PROPRE)
      -------------------------------------------------------------------------- */
 
-  let toastTimer = null;
-  function showToast(message) {
-    const toast = document.getElementById("app-toast");
-    if (!toast) return;
-    toast.textContent = message;
-    toast.classList.add("is-visible");
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => {
-      toast.classList.remove("is-visible");
-    }, 3400);
+  function initBrandLogos() {
+    const logoEls = document.querySelectorAll("[data-aepud-logo]");
+    const dividerEls = document.querySelectorAll("[data-aepud-divider]");
+    if (!logoEls.length) return;
+
+    const logoSrc = (config.branding && config.branding.aepudLogoPath) || "assets/images/logo-aepud.png";
+    const probe = new Image();
+
+    probe.onload = function () {
+      logoEls.forEach((img) => {
+        img.setAttribute("src", logoSrc);
+        img.classList.remove("is-missing");
+      });
+      dividerEls.forEach((div) => div.classList.remove("is-missing"));
+    };
+
+    probe.onerror = function () {
+      logoEls.forEach((img) => img.classList.add("is-missing"));
+      dividerEls.forEach((div) => div.classList.add("is-missing"));
+    };
+
+    probe.src = logoSrc;
   }
 
   /* --------------------------------------------------------------------------
-     MULTILINGUE INSTANTANÉ (FR / EN + ARCHITECTURE EXTENSIBLE)
+     SYSTÈME BILINGUE INSTANTANÉ (FR | EN)
      -------------------------------------------------------------------------- */
 
   function renderLanguageSwitcher() {
     const containers = document.querySelectorAll("[data-lang-switcher]");
-    const flagMap = {
+    const labelMap = {
       fr: "🇫🇷 FR",
-      en: "EN",
-      pt: "🇵🇹 PT"
+      en: "EN"
     };
 
     containers.forEach((container) => {
@@ -125,7 +98,7 @@
         .map((code) => {
           const activeClass = code === state.lang ? "is-active" : "";
           const ariaPressed = code === state.lang ? "true" : "false";
-          const label = flagMap[code] || code.toUpperCase();
+          const label = labelMap[code] || code.toUpperCase();
           return `<button type="button" class="lang-btn ${activeClass}" data-lang="${code}" aria-pressed="${ariaPressed}">${label}</button>`;
         })
         .join("");
@@ -144,6 +117,7 @@
   function setLanguage(lang) {
     if (!translations[lang]) return;
     state.lang = lang;
+
     try {
       localStorage.setItem("pole_lang", lang);
     } catch (_) {
@@ -157,19 +131,14 @@
       metaDesc.setAttribute("content", t("metaDescription"));
     }
 
-    // Traduction des textes simples
     document.querySelectorAll("[data-i18n]").forEach((el) => {
-      const key = el.getAttribute("data-i18n");
-      el.textContent = t(key);
+      el.textContent = t(el.getAttribute("data-i18n"));
     });
 
-    // Traduction des titres avec accent typographique contrôlé
     document.querySelectorAll("[data-i18n-html]").forEach((el) => {
-      const key = el.getAttribute("data-i18n-html");
-      el.innerHTML = t(key);
+      el.innerHTML = t(el.getAttribute("data-i18n-html"));
     });
 
-    // Attributs d'accessibilité
     document.querySelectorAll("[data-i18n-alt]").forEach((el) => {
       el.setAttribute("alt", t(el.getAttribute("data-i18n-alt")));
     });
@@ -179,126 +148,125 @@
     });
 
     renderLanguageSwitcher();
-    renderEventsSection();
     renderTeamSection();
-    renderGallerySection();
-    renderContactChannels();
+    renderEventsBanner();
+    renderResourcesSection();
+    renderContactReps();
+    renderJoinModalReps();
   }
 
   /* --------------------------------------------------------------------------
-     IMAGE HERO & REPLI HORS-LIGNE
+     SECTION 2 : NOTRE ÉQUIPE (LES DEUX REPRÉSENTANTS & LEURS E-MAILS)
      -------------------------------------------------------------------------- */
 
-  function initHeroMedia() {
-    const heroImg = document.getElementById("hero-main-photo");
-    if (!heroImg) return;
-    heroImg.addEventListener("error", function handleHeroError() {
-      if (heroImg.getAttribute("src") !== config.heroMedia.fallback) {
-        heroImg.setAttribute("src", config.heroMedia.fallback);
-      }
-    });
-    heroImg.setAttribute("src", config.heroMedia.src);
+  function renderTeamSection() {
+    const grid = document.getElementById("team-grid");
+    if (!grid || !Array.isArray(config.team)) return;
+
+    grid.innerHTML = config.team
+      .map((member, idx) => {
+        const repLabel = idx === 0 ? t("teamRepLabel1") : t("teamRepLabel2");
+        const roleText = t(member.roleKey || "teamRoleDefault");
+        const bioText = resolveLocalizedValue(member.bio);
+        const bioParagraphsHtml = String(bioText)
+          .split(/\n\s*\n/)
+          .filter(Boolean)
+          .map((para) => `<p>${escapeHtml(para.trim())}</p>`)
+          .join("");
+        const posStyle = member.photoPosition ? ` style="object-position: ${escapeHtml(member.photoPosition)};"` : "";
+        const email = String(member.email || "").trim();
+
+        return `
+          <article class="rep-card">
+            <div class="rep-portrait-wrap">
+              <img
+                src="${escapeHtml(member.photo)}"
+                alt="${escapeHtml(repLabel)} — ${escapeHtml(member.name)}"
+                class="rep-portrait"${posStyle}
+                loading="lazy"
+              >
+            </div>
+            <div class="rep-info">
+              <div>
+                <span class="rep-index">${escapeHtml(repLabel)}</span>
+                <h3 class="rep-name">${escapeHtml(member.name)}</h3>
+                <span class="rep-role">${escapeHtml(roleText)}</span>
+                <span class="rep-bio-label">${escapeHtml(t("teamBioLabel"))}</span>
+                <div class="rep-bio">${bioParagraphsHtml}</div>
+              </div>
+              <div class="rep-footer">
+                <span class="rep-contact-label">${escapeHtml(t("teamContactLabel"))}</span>
+                <a href="mailto:${escapeHtml(email)}" class="rep-contact-link">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                  <span>${escapeHtml(email)}</span>
+                </a>
+              </div>
+            </div>
+          </article>
+        `;
+      })
+      .join("");
   }
 
   /* --------------------------------------------------------------------------
-     SECTION 6 : ÉVÉNEMENTS & ACTIVITÉS
+     SECTION 4 : AGENDA INTÉGRÉ AUX INITIATIVES
      -------------------------------------------------------------------------- */
 
-  function renderEventsSection() {
+  function renderEventsBanner() {
     const container = document.getElementById("events-container");
-    const filterWrap = document.getElementById("events-filter-wrap");
     if (!container) return;
 
     const allEvents = Array.isArray(config.events) ? config.events : [];
 
-    // Aucun événement renseigné : affichage d'un message chaleureux sans inventer de dates
     if (allEvents.length === 0) {
-      if (filterWrap) filterWrap.style.display = "none";
-
       container.innerHTML = `
-        <div class="events-empty-card">
-          <div>
+        <div class="activities-banner">
+          <div class="activities-banner-copy">
             <div class="events-empty-badge">
               <span class="pulse-dot" aria-hidden="true"></span>
-              <span>${escapeHtml(t("emptyBadge"))}</span>
+              <span>${escapeHtml(t("actSubBadge"))}</span>
             </div>
-            <h3 class="events-empty-title">${escapeHtml(t("emptyTitle"))}</h3>
-            <p class="events-empty-text">${escapeHtml(t("emptyText"))}</p>
-            <div class="events-empty-actions">
-              <button type="button" class="btn btn--primary" data-form-trigger="needs">
-                <span>${escapeHtml(t("emptyCtaSuggest"))}</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                  <path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-              <a href="#contact" class="btn btn--outline">
-                <span>${escapeHtml(t("emptyCtaFollow"))}</span>
-              </a>
-            </div>
+            <h3 class="activities-banner-title">${escapeHtml(t("actSubTitle"))}</h3>
+            <p class="activities-banner-text">${escapeHtml(t("actSubText"))}</p>
           </div>
-          <div class="events-preview-list" aria-label="Formats d'activités prévus">
-            <div class="events-preview-item">
-              <span class="icon-box" aria-hidden="true">✦</span>
-              <span>${escapeHtml(t("emptyPreview1"))}</span>
-            </div>
-            <div class="events-preview-item">
-              <span class="icon-box" aria-hidden="true">⛰</span>
-              <span>${escapeHtml(t("emptyPreview2"))}</span>
-            </div>
-            <div class="events-preview-item">
-              <span class="icon-box" aria-hidden="true">🤝</span>
-              <span>${escapeHtml(t("emptyPreview3"))}</span>
-            </div>
+          <div class="activities-banner-actions">
+            <button type="button" class="btn btn--primary" data-open-join-modal>
+              <span>${escapeHtml(t("actSubBtnJoin"))}</span>
+            </button>
+            <a href="#questionnaire" class="btn btn--outline">
+              <span>${escapeHtml(t("actSubBtnSurvey"))}</span>
+            </a>
           </div>
         </div>
       `;
-
-      bindFormTriggers(container);
+      bindJoinModalTriggers(container);
       return;
     }
 
-    // Lorsque des événements réels sont renseignés dans js/content.js
-    if (filterWrap) filterWrap.style.display = "inline-flex";
-
-    const filtered = allEvents.filter((evt) => {
-      if (state.eventFilter === "all") return true;
-      return evt.status === state.eventFilter;
-    });
-
-    if (filtered.length === 0) {
-      container.innerHTML = `
-        <div class="events-empty-card" style="grid-template-columns: 1fr; text-align: center;">
-          <p class="events-empty-text" style="margin-inline: auto; margin-bottom: 0;">
-            ${escapeHtml(t("emptyFilterNone"))}
-          </p>
-        </div>
-      `;
-      return;
-    }
-
-    const cardsHtml = filtered
+    const cardsHtml = allEvents
       .map((evt) => {
         const isUpcoming = evt.status !== "past";
         const statusLabel = isUpcoming ? t("statusUpcoming") : t("statusPast");
         const statusClass = isUpcoming ? "event-status--upcoming" : "event-status--past";
-        const title = typeof evt.title === "object" ? (evt.title[state.lang] || evt.title.fr) : evt.title;
-        const desc = typeof evt.description === "object" ? (evt.description[state.lang] || evt.description.fr) : evt.description;
-        const imgSrc = evt.image || "assets/images/gallery-1.svg";
-
+        const title = resolveLocalizedValue(evt.title);
+        const desc = resolveLocalizedValue(evt.description);
         const metaParts = [];
-        if (evt.date && !isPlaceholderValue(evt.date)) {
-          metaParts.push(`<span class="event-meta-item">📅 ${escapeHtml(evt.date)}</span>`);
-        }
-        if (evt.location && !isPlaceholderValue(evt.location)) {
-          metaParts.push(`<span class="event-meta-item">📍 ${escapeHtml(evt.location)}</span>`);
-        }
+        if (evt.date) metaParts.push(`<span>📅 ${escapeHtml(evt.date)}</span>`);
+        if (evt.location) metaParts.push(`<span>📍 ${escapeHtml(evt.location)}</span>`);
 
         return `
           <article class="event-card">
-            <div class="event-media">
-              <img src="${escapeHtml(imgSrc)}" alt="${escapeHtml(title)}" loading="lazy">
-              <span class="event-status ${statusClass}">${escapeHtml(statusLabel)}</span>
-            </div>
+            ${
+              evt.image
+                ? `<div class="event-media">
+                     <img src="${escapeHtml(evt.image)}" alt="${escapeHtml(title)}" loading="lazy">
+                     <span class="event-status ${statusClass}">${escapeHtml(statusLabel)}</span>
+                   </div>`
+                : ""
+            }
             <div class="event-body">
               <h3 class="event-title">${escapeHtml(title)}</h3>
               <p class="event-desc">${escapeHtml(desc)}</p>
@@ -312,442 +280,110 @@
     container.innerHTML = `<div class="events-grid">${cardsHtml}</div>`;
   }
 
-  function initEventFilters() {
-    document.querySelectorAll("[data-event-filter]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        state.eventFilter = btn.getAttribute("data-event-filter") || "all";
-        document.querySelectorAll("[data-event-filter]").forEach((b) => {
-          b.classList.toggle("is-active", b === btn);
-        });
-        renderEventsSection();
-      });
-    });
-  }
-
   /* --------------------------------------------------------------------------
-     SECTION 7 : NOTRE ÉQUIPE & INTERFACE DE PERSONNALISATION
+     SECTION 5 : RESSOURCES ET ACCOMPAGNEMENT
      -------------------------------------------------------------------------- */
 
-  function renderRepContact(contactVal) {
-    if (isPlaceholderValue(contactVal)) {
-      return `<span class="rep-placeholder-pill">${escapeHtml(t("placeholderText"))}</span>`;
+  function getResourceIconSvg(iconName) {
+    switch (iconName) {
+      case "home":
+        return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`;
+      case "shield":
+        return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>`;
+      case "compass":
+        return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>`;
+      default:
+        return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`;
     }
-
-    const trimmed = String(contactVal).trim();
-    if (trimmed.includes("@") && !trimmed.startsWith("http") && !trimmed.startsWith("@")) {
-      return `<a href="mailto:${escapeHtml(trimmed)}" class="rep-contact-link">✉ ${escapeHtml(trimmed)}</a>`;
-    }
-
-    if (trimmed.startsWith("@")) {
-      const handle = trimmed.slice(1);
-      return `<a href="https://instagram.com/${encodeURIComponent(handle)}" target="_blank" rel="noopener noreferrer" class="rep-contact-link">↗ ${escapeHtml(trimmed)}</a>`;
-    }
-
-    if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) {
-      return `<a href="${escapeHtml(trimmed)}" target="_blank" rel="noopener noreferrer" class="rep-contact-link">↗ ${escapeHtml(trimmed)}</a>`;
-    }
-
-    return `<span class="rep-contact-link">${escapeHtml(trimmed)}</span>`;
   }
 
-  function renderTeamSection() {
-    const grid = document.getElementById("team-grid");
-    if (!grid) return;
+  function renderResourcesSection() {
+    const grid = document.getElementById("resources-grid");
+    if (!grid || !Array.isArray(config.resources)) return;
 
-    grid.innerHTML = state.teamData
-      .map((member, idx) => {
-        const repLabel = idx === 0 ? t("teamRepLabel1") : t("teamRepLabel2");
-        const displayName = formatDisplayValue(member.name);
-        const displayBio = formatDisplayValue(member.bio);
-        const bioParagraphsHtml = String(displayBio)
-          .split(/\n\s*\n/)
-          .filter(Boolean)
-          .map((para) => `<p>${escapeHtml(para.trim())}</p>`)
+    grid.innerHTML = config.resources
+      .map((res) => {
+        const tag = resolveLocalizedValue(res.tag);
+        const title = resolveLocalizedValue(res.title);
+        const desc = resolveLocalizedValue(res.description);
+        const linksHtml = (res.links || [])
+          .map((lnk) => {
+            const label = resolveLocalizedValue(lnk.label);
+            return `
+              <a href="${escapeHtml(lnk.url)}" target="_blank" rel="noopener noreferrer" class="resource-link-pill">
+                <span>${escapeHtml(label)}</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+                  <path d="M7 17L17 7M17 7H7M17 7V17" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            `;
+          })
           .join("");
-        const roleText = member.customRole ? member.customRole : t(member.roleKey || "teamRoleDefault");
-        const photoSrc = member.photo || `assets/images/portrait-placeholder-${idx + 1}.svg`;
-        const posStyle = member.photoPosition ? ` style="object-position: ${escapeHtml(member.photoPosition)};"` : "";
-        const showSlotBadge = Boolean(member.isPlaceholderPhoto);
 
         return `
-          <article class="rep-card">
-            <div class="rep-portrait-wrap">
-              <img
-                src="${escapeHtml(photoSrc)}"
-                alt="${escapeHtml(repLabel)} — ${escapeHtml(displayName)}"
-                class="rep-portrait"${posStyle}
-                loading="lazy"
-              >
-              ${showSlotBadge ? `<span class="rep-slot-badge">${escapeHtml(t("teamSlotBadge"))}</span>` : ""}
-            </div>
-            <div class="rep-info">
-              <div>
-                <span class="rep-index">${escapeHtml(repLabel)}</span>
-                <h3 class="rep-name">${escapeHtml(displayName)}</h3>
-                <span class="rep-role">${escapeHtml(roleText)}</span>
-                <span class="rep-bio-label">${escapeHtml(t("teamBioLabel"))}</span>
-                <div class="rep-bio">${bioParagraphsHtml}</div>
+          <article class="resource-card">
+            <div>
+              <div class="resource-card-head">
+                <div class="resource-icon">${getResourceIconSvg(res.icon)}</div>
+                <span class="resource-tag">${escapeHtml(tag)}</span>
               </div>
-              <div class="rep-footer">
-                <span class="rep-contact-label">${escapeHtml(t("teamContactLabel"))}</span>
-                ${renderRepContact(member.contact)}
-              </div>
+              <h3 class="resource-title">${escapeHtml(title)}</h3>
+              <p class="resource-desc">${escapeHtml(desc)}</p>
             </div>
+            <div class="resource-links">${linksHtml}</div>
           </article>
         `;
       })
       .join("");
   }
 
-  function initTeamEditorModal() {
-    const openBtn = document.getElementById("open-team-editor");
-    const modal = document.getElementById("team-modal");
-    const tabBtns = document.querySelectorAll("[data-rep-tab]");
-    const nameInput = document.getElementById("rep-name-input");
-    const bioInput = document.getElementById("rep-bio-input");
-    const contactInput = document.getElementById("rep-contact-input");
-    const photoFileInput = document.getElementById("rep-photo-file");
-    const applyBtn = document.getElementById("rep-apply-btn");
-    const copyBtn = document.getElementById("rep-copy-config-btn");
-    const resetBtn = document.getElementById("rep-reset-btn");
-
-    if (!openBtn || !modal) return;
-
-    function populateEditorFields(index) {
-      state.activeRepTab = index;
-      tabBtns.forEach((b, i) => b.classList.toggle("is-active", i === index));
-      const rep = state.teamData[index];
-      const currentBio = resolveLocalizedValue(rep.bio);
-      nameInput.value = isPlaceholderValue(rep.name) ? "" : rep.name;
-      bioInput.value = isPlaceholderValue(currentBio) ? "" : currentBio;
-      contactInput.value = isPlaceholderValue(rep.contact) ? "" : rep.contact;
-      if (photoFileInput) photoFileInput.value = "";
-    }
-
-    function saveCurrentTabFields() {
-      const rep = state.teamData[state.activeRepTab];
-      rep.name = nameInput.value.trim() || "[À RENSEIGNER]";
-      const nextBioText = bioInput.value.trim() || "[À RENSEIGNER]";
-      if (rep.bio && typeof rep.bio === "object") {
-        rep.bio[state.lang] = nextBioText;
-      } else {
-        rep.bio = nextBioText;
-      }
-      rep.contact = contactInput.value.trim() || "[À RENSEIGNER]";
-    }
-
-    openBtn.addEventListener("click", () => {
-      populateEditorFields(0);
-      openModal(modal, openBtn);
-    });
-
-    tabBtns.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        saveCurrentTabFields();
-        const nextIdx = Number(btn.getAttribute("data-rep-tab")) || 0;
-        populateEditorFields(nextIdx);
-      });
-    });
-
-    if (photoFileInput) {
-      photoFileInput.addEventListener("change", (e) => {
-        const file = e.target.files && e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = function (ev) {
-          if (ev.target && typeof ev.target.result === "string") {
-            state.teamData[state.activeRepTab].photo = ev.target.result;
-            state.teamData[state.activeRepTab].isPlaceholderPhoto = false;
-            state.teamData[state.activeRepTab].suggestedFileName = `assets/images/${file.name}`;
-          }
-        };
-        reader.readAsDataURL(file);
-      });
-    }
-
-    if (applyBtn) {
-      applyBtn.addEventListener("click", () => {
-        saveCurrentTabFields();
-        try {
-          sessionStorage.setItem("pole_team_preview_v2", JSON.stringify(state.teamData));
-        } catch (_) {
-          /* Ignorer quota si image lourde */
-        }
-        renderTeamSection();
-        closeModal(modal);
-        showToast(t("toastSavedTeam"));
-      });
-    }
-
-    if (copyBtn) {
-      copyBtn.addEventListener("click", () => {
-        saveCurrentTabFields();
-        const exportTeam = state.teamData.map((m, idx) => ({
-          id: m.id,
-          photo: m.suggestedFileName || (m.photo.startsWith("data:") ? `assets/images/rep-${idx + 1}.jpg` : m.photo),
-          photoPosition: m.photoPosition || "center 50%",
-          isPlaceholderPhoto: Boolean(m.isPlaceholderPhoto),
-          name: m.name,
-          roleKey: "teamRoleDefault",
-          bio: m.bio,
-          contact: m.contact
-        }));
-        const snippet = `team: ${JSON.stringify(exportTeam, null, 2)},`;
-        copyTextToClipboard(snippet, t("toastCopiedConfig"));
-      });
-    }
-
-    if (resetBtn) {
-      resetBtn.addEventListener("click", () => {
-        state.teamData = JSON.parse(JSON.stringify(config.team));
-        sessionStorage.removeItem("pole_team_preview_v2");
-        populateEditorFields(state.activeRepTab);
-        renderTeamSection();
-      });
-    }
-  }
-
   /* --------------------------------------------------------------------------
-     SECTION 8 : GOOGLE FORMS (PARTAGER MES BESOINS / REJOINDRE LE PÔLE)
+     CONTACTS DES REPRÉSENTANTS DANS #contact ET DANS LA MODALE #join-modal
      -------------------------------------------------------------------------- */
 
-  function getActiveGoogleFormUrl() {
-    if (state.customFormsUrl && state.customFormsUrl.startsWith("https://")) {
-      return state.customFormsUrl;
+  function renderContactReps() {
+    const list = document.getElementById("contact-reps-list");
+    const campusEl = document.getElementById("contact-campus-value");
+    if (campusEl && config.contact && config.contact.location) {
+      campusEl.textContent = config.contact.location;
     }
-    if (!isPlaceholderValue(config.googleFormsUrl) && config.googleFormsUrl.startsWith("http")) {
-      return config.googleFormsUrl;
-    }
-    return "";
-  }
+    if (!list || !Array.isArray(config.team)) return;
 
-  function handleFormAction(intent, triggerEl) {
-    const activeUrl = getActiveGoogleFormUrl();
-    if (activeUrl) {
-      const separator = activeUrl.includes("?") ? "&" : "?";
-      const targetUrl = `${activeUrl}${separator}source=${encodeURIComponent(intent)}`;
-      window.open(targetUrl, "_blank", "noopener,noreferrer");
-      return;
-    }
-
-    // Si [GOOGLE_FORMS_URL] n'est pas encore renseigné, ouvrir la modale interactive dédiée
-    const formModal = document.getElementById("forms-modal");
-    const titleEl = document.getElementById("forms-modal-title");
-    const inputEl = document.getElementById("forms-url-input");
-    if (!formModal) return;
-
-    if (titleEl) {
-      titleEl.textContent = intent === "join" ? t("formModalTitleJoin") : t("formModalTitleNeeds");
-    }
-    if (inputEl) {
-      inputEl.value = state.customFormsUrl || "";
-    }
-    formModal.setAttribute("data-current-intent", intent);
-    openModal(formModal, triggerEl);
-  }
-
-  function bindFormTriggers(scope = document) {
-    scope.querySelectorAll("[data-form-trigger]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const intent = btn.getAttribute("data-form-trigger") || "needs";
-        handleFormAction(intent, btn);
-      });
-    });
-  }
-
-  function initFormsModal() {
-    const formModal = document.getElementById("forms-modal");
-    const saveOpenBtn = document.getElementById("forms-save-open-btn");
-    const inputEl = document.getElementById("forms-url-input");
-
-    if (!formModal || !saveOpenBtn || !inputEl) return;
-
-    saveOpenBtn.addEventListener("click", () => {
-      const val = inputEl.value.trim();
-      if (!val.startsWith("https://")) {
-        showToast(t("toastInvalidUrl"));
-        inputEl.focus();
-        return;
-      }
-      state.customFormsUrl = val;
-      try {
-        sessionStorage.setItem("pole_preview_forms_url", val);
-      } catch (_) {
-        /* Ignorer */
-      }
-      const intent = formModal.getAttribute("data-current-intent") || "needs";
-      closeModal(formModal);
-      window.open(val, "_blank", "noopener,noreferrer");
-      void intent;
-    });
-  }
-
-  /* --------------------------------------------------------------------------
-     SECTION 9 : GALERIE MASONRY & LIGHTBOX PLEIN ÉCRAN
-     -------------------------------------------------------------------------- */
-
-  function renderGallerySection() {
-    const grid = document.getElementById("gallery-masonry");
-    if (!grid) return;
-
-    grid.innerHTML = config.gallery
-      .map((item, index) => {
-        const title = item.title[state.lang] || item.title.fr;
-        const subtitle = item.subtitle[state.lang] || item.subtitle.fr;
-
-        return `
-          <button
-            type="button"
-            class="gallery-item"
-            data-gallery-index="${index}"
-            aria-label="${escapeHtml(title)}"
-          >
-            ${item.isTemporary ? `<span class="gallery-temp-badge">${escapeHtml(t("galTempBadge"))}</span>` : ""}
-            <img src="${escapeHtml(item.src)}" alt="${escapeHtml(title)}" loading="lazy">
-            <span class="gallery-overlay">
-              <span class="gallery-caption-title">${escapeHtml(title)}</span>
-              <span class="gallery-caption-sub">${escapeHtml(subtitle)}</span>
-            </span>
-          </button>
-        `;
-      })
+    list.innerHTML = config.team
+      .map(
+        (member) => `
+          <a href="mailto:${escapeHtml(member.email)}" class="contact-rep-item">
+            <span class="contact-rep-name">${escapeHtml(member.name)}</span>
+            <span class="contact-rep-email">✉ ${escapeHtml(member.email)}</span>
+          </a>
+        `
+      )
       .join("");
-
-    grid.querySelectorAll("[data-gallery-index]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const idx = Number(btn.getAttribute("data-gallery-index")) || 0;
-        openLightbox(idx, btn);
-      });
-    });
   }
 
-  function updateLightboxView() {
-    const total = config.gallery.length;
-    if (!total) return;
-    const item = config.gallery[state.lightboxIndex];
-    const imgEl = document.getElementById("lightbox-image");
-    const captionEl = document.getElementById("lightbox-caption");
-    const counterEl = document.getElementById("lightbox-counter");
+  function renderJoinModalReps() {
+    const container = document.getElementById("join-modal-reps");
+    if (!container || !Array.isArray(config.team)) return;
 
-    const title = item.title[state.lang] || item.title.fr;
-    const subtitle = item.subtitle[state.lang] || item.subtitle.fr;
-
-    if (imgEl) {
-      imgEl.setAttribute("src", item.src);
-      imgEl.setAttribute("alt", title);
-    }
-    if (captionEl) {
-      captionEl.textContent = `${title} — ${subtitle}`;
-    }
-    if (counterEl) {
-      counterEl.textContent = `${state.lightboxIndex + 1} / ${total}`;
-    }
-  }
-
-  function openLightbox(index, triggerEl) {
-    const modal = document.getElementById("lightbox-modal");
-    if (!modal) return;
-    state.lightboxIndex = index;
-    updateLightboxView();
-    openModal(modal, triggerEl);
-  }
-
-  function stepLightbox(delta) {
-    const total = config.gallery.length;
-    if (!total) return;
-    state.lightboxIndex = (state.lightboxIndex + delta + total) % total;
-    updateLightboxView();
-  }
-
-  function initLightboxControls() {
-    const prevBtn = document.getElementById("lightbox-prev");
-    const nextBtn = document.getElementById("lightbox-next");
-    if (prevBtn) prevBtn.addEventListener("click", () => stepLightbox(-1));
-    if (nextBtn) nextBtn.addEventListener("click", () => stepLightbox(1));
+    const roleLabel = t("teamRoleDefault");
+    container.innerHTML = config.team
+      .map(
+        (member) => `
+          <a href="mailto:${escapeHtml(member.email)}" class="contact-rep-item">
+            <span class="contact-rep-name">${escapeHtml(member.name)} — ${escapeHtml(roleLabel)}</span>
+            <span class="contact-rep-email">✉ ${escapeHtml(member.email)}</span>
+          </a>
+        `
+      )
+      .join("");
   }
 
   /* --------------------------------------------------------------------------
-     SECTION 10 : CONTACT & RÉSEAUX SOCIAUX
-     -------------------------------------------------------------------------- */
-
-  function renderContactChannels() {
-    const emailValEl = document.getElementById("contact-email-value");
-    const instaValEl = document.getElementById("contact-insta-value");
-    const otherValEl = document.getElementById("contact-other-value");
-    const campusValEl = document.getElementById("contact-campus-value");
-
-    if (emailValEl) {
-      if (isPlaceholderValue(config.contact.email)) {
-        emailValEl.textContent = t("placeholderText");
-      } else {
-        emailValEl.innerHTML = `<a href="mailto:${escapeHtml(config.contact.email)}">${escapeHtml(config.contact.email)}</a>`;
-      }
-    }
-
-    if (instaValEl) {
-      if (isPlaceholderValue(config.contact.instagram)) {
-        instaValEl.textContent = t("placeholderText");
-      } else {
-        const raw = config.contact.instagram.trim();
-        const url = raw.startsWith("http")
-          ? raw
-          : `https://instagram.com/${encodeURIComponent(raw.replace(/^@/, ""))}`;
-        instaValEl.innerHTML = `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(raw)}</a>`;
-      }
-    }
-
-    if (otherValEl) {
-      if (isPlaceholderValue(config.contact.otherNetwork)) {
-        otherValEl.textContent = t("placeholderText");
-      } else {
-        const raw = config.contact.otherNetwork.trim();
-        otherValEl.innerHTML = raw.startsWith("http")
-          ? `<a href="${escapeHtml(raw)}" target="_blank" rel="noopener noreferrer">${escapeHtml(raw)}</a>`
-          : escapeHtml(raw);
-      }
-    }
-
-    if (campusValEl) {
-      campusValEl.textContent = config.contact.location;
-    }
-  }
-
-  function initContactAction() {
-    const contactBtn = document.getElementById("main-contact-btn");
-    const contactModal = document.getElementById("contact-modal");
-    if (!contactBtn) return;
-
-    contactBtn.addEventListener("click", () => {
-      if (!isPlaceholderValue(config.contact.email)) {
-        copyTextToClipboard(config.contact.email, t("contactCopySuccess"));
-        window.location.href = `mailto:${config.contact.email}`;
-      } else if (contactModal) {
-        openModal(contactModal, contactBtn);
-      }
-    });
-  }
-
-  function copyTextToClipboard(text, successMsg) {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(() => {
-        showToast(successMsg);
-      });
-    } else {
-      const temp = document.createElement("textarea");
-      temp.value = text;
-      document.body.appendChild(temp);
-      temp.select();
-      document.execCommand("copy");
-      document.body.removeChild(temp);
-      showToast(successMsg);
-    }
-  }
-
-  /* --------------------------------------------------------------------------
-     GESTION GÉNÉRIQUE DES MODALES & ACCESSIBILITÉ CLAVIER
+     GESTION DE LA MODALE « REJOINDRE LE PÔLE » & ACCESSIBILITÉ CLAVIER
      -------------------------------------------------------------------------- */
 
   function openModal(modal, triggerEl) {
+    if (!modal) return;
     state.lastFocusedElement = triggerEl || document.activeElement;
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
@@ -770,6 +406,15 @@
     }
   }
 
+  function bindJoinModalTriggers(scope = document) {
+    const joinModal = document.getElementById("join-modal");
+    if (!joinModal) return;
+
+    scope.querySelectorAll("[data-open-join-modal]").forEach((btn) => {
+      btn.addEventListener("click", () => openModal(joinModal, btn));
+    });
+  }
+
   function initModals() {
     document.querySelectorAll(".modal-backdrop").forEach((backdrop) => {
       backdrop.addEventListener("click", (e) => {
@@ -784,20 +429,17 @@
     });
 
     document.addEventListener("keydown", (e) => {
-      const openBackdrop = document.querySelector(".modal-backdrop.is-open");
-      if (!openBackdrop) return;
-
       if (e.key === "Escape") {
-        closeModal(openBackdrop);
-      } else if (openBackdrop.id === "lightbox-modal") {
-        if (e.key === "ArrowLeft") stepLightbox(-1);
-        if (e.key === "ArrowRight") stepLightbox(1);
+        const openBackdrop = document.querySelector(".modal-backdrop.is-open");
+        if (openBackdrop) {
+          closeModal(openBackdrop);
+        }
       }
     });
   }
 
   /* --------------------------------------------------------------------------
-     NAVIGATION MOBILE, BARRE DE PROGRESSION & SCROLL REVEAL
+     NAVIGATION MOBILE, BARRE DE PROGRESSION, SCROLL SPY & REVEAL
      -------------------------------------------------------------------------- */
 
   function initNavigationAndScroll() {
@@ -832,11 +474,11 @@
       });
 
       window.addEventListener("resize", () => {
-        if (window.innerWidth > 860) closeMobileMenu();
+        if (window.innerWidth > 1120) closeMobileMenu();
       });
     }
 
-    // Progression du défilement & effet glassmorphism du header
+    // Barre de progression de lecture & effet glassmorphism du header
     let ticking = false;
     function updateOnScroll() {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -864,7 +506,7 @@
     );
     updateOnScroll();
 
-    // Suivi de la section active dans la barre de navigation
+    // Suivi de la section active sur les 6 entrées de navigation
     const sections = document.querySelectorAll("section[id]");
     if ("IntersectionObserver" in window && sections.length) {
       const spyObserver = new IntersectionObserver(
@@ -872,7 +514,7 @@
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               const id = entry.target.getAttribute("id");
-              const mappedId = id === "galerie" || id === "contact" ? "nous-rejoindre" : id;
+              const mappedId = id === "questionnaire" ? "ressources" : id;
               navLinks.forEach((link) => {
                 const href = link.getAttribute("href");
                 link.classList.toggle("is-active", href === `#${mappedId}`);
@@ -880,12 +522,12 @@
             }
           });
         },
-        { rootMargin: "-35% 0px -55% 0px" }
+        { rootMargin: "-32% 0px -55% 0px" }
       );
       sections.forEach((sec) => spyObserver.observe(sec));
     }
 
-    // Animations d'apparition au défilement
+    // Animations fluides à l'apparition au défilement
     const revealEls = document.querySelectorAll("[data-reveal]");
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -901,7 +543,7 @@
             }
           });
         },
-        { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+        { threshold: 0.1, rootMargin: "0px 0px -36px 0px" }
       );
       revealEls.forEach((el) => revealObserver.observe(el));
     }
@@ -917,17 +559,10 @@
       yearEl.textContent = String(new Date().getFullYear());
     }
 
-    initHeroMedia();
-    initEventFilters();
-    bindFormTriggers(document);
-    initFormsModal();
-    initTeamEditorModal();
-    initLightboxControls();
-    initContactAction();
+    initBrandLogos();
+    bindJoinModalTriggers(document);
     initModals();
     initNavigationAndScroll();
-
-    // Applique la langue par défaut (FR) ou celle mémorisée et génère tous les blocs dynamiques
     setLanguage(state.lang);
   });
 })();

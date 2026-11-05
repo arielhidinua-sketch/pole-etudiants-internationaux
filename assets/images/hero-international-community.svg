@@ -1,0 +1,206 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 600" fill="none" role="img" aria-label="Illustration d'étudiants internationaux de différentes cultures réunis autour du Pôle International de l'IUT de Saint-Dié">
+  <defs>
+    <linearGradient id="canvasBg" x1="40" y1="20" x2="640" y2="580" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FAF8FF"/>
+      <stop offset="55%" stop-color="#F3EEFF"/>
+      <stop offset="100%" stop-color="#EAE2FF"/>
+    </linearGradient>
+    <linearGradient id="globeSphere" x1="180" y1="80" x2="500" y2="420" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#EDE9FE"/>
+      <stop offset="100%" stop-color="#DDD6FE" stop-opacity="0.55"/>
+    </linearGradient>
+    <linearGradient id="violetPrimary" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6D28D9"/>
+      <stop offset="100%" stop-color="#4C1D95"/>
+    </linearGradient>
+    <linearGradient id="violetVibrant" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#5B21B6"/>
+    </linearGradient>
+    <linearGradient id="warmCoral" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#EA580C"/>
+    </linearGradient>
+    <linearGradient id="softTeal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#14B8A6"/>
+      <stop offset="100%" stop-color="#0D9488"/>
+    </linearGradient>
+    <filter id="cardDrop" x="-12%" y="-12%" width="124%" height="130%">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#3B0F7A" flood-opacity="0.10"/>
+    </filter>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#5B21B6" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+
+  <!-- Fond éditorial principal -->
+  <rect x="16" y="16" width="648" height="568" rx="36" fill="url(#canvasBg)" stroke="#DCD4F2" stroke-width="1.5"/>
+
+  <!-- Halos décoratifs subtils -->
+  <circle cx="560" cy="105" r="95" fill="#DDD6FE" opacity="0.45"/>
+  <circle cx="115" cy="485" r="110" fill="#EDE9FE" opacity="0.7"/>
+
+  <!-- Sphère Monde & Méridiens stylisés -->
+  <g opacity="0.92">
+    <circle cx="340" cy="255" r="185" fill="url(#globeSphere)" stroke="#C4B5FD" stroke-width="1.5"/>
+    <circle cx="340" cy="255" r="142" stroke="#C4B5FD" stroke-opacity="0.55" stroke-width="1.2" stroke-dasharray="5 5"/>
+    <ellipse cx="340" cy="255" rx="92" ry="185" stroke="#A78BFA" stroke-opacity="0.5" stroke-width="1.4"/>
+    <ellipse cx="340" cy="255" rx="185" ry="68" stroke="#A78BFA" stroke-opacity="0.5" stroke-width="1.4"/>
+    <line x1="155" y1="255" x2="525" y2="255" stroke="#A78BFA" stroke-opacity="0.45" stroke-width="1.3"/>
+    <line x1="340" y1="70" x2="340" y2="440" stroke="#A78BFA" stroke-opacity="0.45" stroke-width="1.3"/>
+
+    <!-- Formes stylisées des continents (ouverture au monde) -->
+    <!-- Europe & Afrique -->
+    <path d="M312 132 C328 124, 355 128, 366 142 C374 152, 362 166, 348 170 C362 178, 378 196, 374 226 C370 258, 352 292, 336 302 C322 294, 314 264, 310 238 C298 224, 294 198, 312 184 C304 168, 300 142, 312 132 Z" fill="#C4B5FD" opacity="0.55"/>
+    <!-- Amériques -->
+    <path d="M205 148 C224 140, 246 154, 248 174 C250 192, 236 204, 242 220 C252 238, 266 262, 256 294 C248 316, 232 324, 224 306 C216 284, 220 254, 210 232 C196 212, 190 162, 205 148 Z" fill="#C4B5FD" opacity="0.5"/>
+    <!-- Asie & Océanie -->
+    <path d="M396 146 C426 136, 468 150, 484 178 C492 198, 472 218, 448 222 C426 226, 408 212, 398 194 C388 176, 384 154, 396 146 Z" fill="#C4B5FD" opacity="0.5"/>
+    <circle cx="468" cy="272" r="20" fill="#C4B5FD" opacity="0.45"/>
+  </g>
+
+  <!-- Arcs de connexion internationale convergeant vers le point central -->
+  <path d="M118 175 C190 85, 290 95, 340 168" stroke="#7C3AED" stroke-width="2.2" stroke-dasharray="6 6" stroke-linecap="round"/>
+  <path d="M562 162 C495 88, 395 96, 340 168" stroke="#6D28D9" stroke-width="2.2" stroke-dasharray="6 6" stroke-linecap="round"/>
+  <path d="M148 310 C215 245, 285 215, 340 168" stroke="#F59E0B" stroke-width="2" stroke-dasharray="5 5" stroke-linecap="round"/>
+  <path d="M538 295 C475 235, 405 205, 340 168" stroke="#0D9488" stroke-width="2" stroke-dasharray="5 5" stroke-linecap="round"/>
+
+  <!-- Points lumineux d'origine et repère central IUT Saint-Dié -->
+  <circle cx="118" cy="175" r="7" fill="#F59E0B"/>
+  <circle cx="118" cy="175" r="13" stroke="#F59E0B" stroke-opacity="0.35" stroke-width="2"/>
+  <circle cx="562" cy="162" r="7" fill="#6D28D9"/>
+  <circle cx="562" cy="162" r="13" stroke="#6D28D9" stroke-opacity="0.35" stroke-width="2"/>
+  <circle cx="148" cy="310" r="6" fill="#EC4899"/>
+  <circle cx="538" cy="295" r="6" fill="#0D9488"/>
+
+  <!-- Point de rencontre central (Saint-Dié / IUT) -->
+  <g filter="url(#softGlow)">
+    <circle cx="340" cy="168" r="18" fill="#4C1D95"/>
+    <circle cx="340" cy="168" r="26" stroke="#7C3AED" stroke-opacity="0.38" stroke-width="2"/>
+    <path d="M333 168 L338 173 L348 163" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Bulles d'échanges culturels et d'entraide -->
+  <g filter="url(#cardDrop)">
+    <!-- Bulle gauche : Langues & Salutations -->
+    <rect x="64" y="66" width="166" height="58" rx="18" fill="#FFFFFF" stroke="#E4DDF7" stroke-width="1.2"/>
+    <circle cx="96" cy="95" r="16" fill="#F5F3FF"/>
+    <text x="96" y="100" text-anchor="middle" font-family="Plus Jakarta Sans, Inter, sans-serif" font-size="14" font-weight="800" fill="#5B21B6">🌍</text>
+    <text x="122" y="91" font-family="Plus Jakarta Sans, Inter, sans-serif" font-size="11.5" font-weight="800" fill="#151026">Bienvenue · Welcome</text>
+    <text x="122" y="107" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#6D28D9">Olá · السلام · 你好 · Hola</text>
+
+    <!-- Bulle droite : Solidarité & Communauté -->
+    <rect x="454" y="58" width="166" height="58" rx="18" fill="#FFFFFF" stroke="#E4DDF7" stroke-width="1.2"/>
+    <circle cx="486" cy="87" r="16" fill="#FEF3C7"/>
+    <path d="M486 94 C486 94 478 89 478 84 C478 81.5 480 80 482 80 C483.8 80 485.2 81 486 82.4 C486.8 81 488.2 80 490 80 C492 80 494 81.5 494 84 C494 89 486 94 486 94 Z" fill="#D97706"/>
+    <text x="512" y="83" font-family="Plus Jakarta Sans, Inter, sans-serif" font-size="11.5" font-weight="800" fill="#151026">Entraide &amp; Partage</text>
+    <text x="512" y="99" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#6E6685">IUT de Saint-Dié</text>
+  </g>
+
+  <!-- ========================================================================
+       GROUPE DIVERSIFIÉ D'ÉTUDIANTS INTERNATIONAUX (Illustration éditoriale)
+       5 étudiants d'origines variées réunis autour d'un espace commun
+       ======================================================================== -->
+
+  <!-- Étudiant 1 (Gauche) : Jeune femme avec foulard/hijab lavande, tenant un carnet -->
+  <g>
+    <!-- Épaules & Veste -->
+    <path d="M98 520 C98 446, 134 414, 178 414 C222 414, 254 446, 254 520 Z" fill="#5B21B6"/>
+    <path d="M150 416 L178 468 L206 416" fill="#EDE9FE"/>
+    <!-- Foulard / Hijab éditorial -->
+    <path d="M140 356 C140 322, 158 304, 178 304 C198 304, 216 322, 216 356 C216 392, 204 422, 178 426 C152 422, 140 392, 140 356 Z" fill="#8B5CF6"/>
+    <!-- Visage -->
+    <ellipse cx="178" cy="356" rx="25" ry="29" fill="#C68642"/>
+    <!-- Regard chaleureux & sourire -->
+    <circle cx="169" cy="352" r="2.4" fill="#1F1633"/>
+    <circle cx="187" cy="352" r="2.4" fill="#1F1633"/>
+    <path d="M171 366 Q178 372 185 366" stroke="#1F1633" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+  </g>
+
+  <!-- Étudiant 2 (Centre-Gauche) : Jeune homme peau foncée, lunettes rondes, veste ambre -->
+  <g>
+    <path d="M196 520 C196 438, 232 402, 276 402 C320 402, 354 438, 354 520 Z" fill="url(#warmCoral)"/>
+    <path d="M254 403 L276 458 L298 403" fill="#1E1038"/>
+    <!-- Cou -->
+    <rect x="264" y="374" width="24" height="32" rx="10" fill="#4A2C1D"/>
+    <!-- Cheveux courts texturés -->
+    <path d="M244 334 C244 306, 258 292, 276 292 C294 292, 308 306, 308 334 Z" fill="#191324"/>
+    <!-- Visage -->
+    <rect x="247" y="314" width="58" height="68" rx="28" fill="#593423"/>
+    <!-- Lunettes modernes -->
+    <circle cx="265" cy="344" r="9.5" stroke="#FFFFFF" stroke-width="2.2" fill="none"/>
+    <circle cx="287" cy="344" r="9.5" stroke="#FFFFFF" stroke-width="2.2" fill="none"/>
+    <line x1="274.5" y1="344" x2="277.5" y2="344" stroke="#FFFFFF" stroke-width="2.2"/>
+    <circle cx="265" cy="344" r="2.3" fill="#191324"/>
+    <circle cx="287" cy="344" r="2.3" fill="#191324"/>
+    <path d="M268 362 Q276 369 284 362" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+  </g>
+
+  <!-- Étudiant 5 (Droite) : Jeune homme origines asiatiques / internationales, sweat teal -->
+  <g>
+    <path d="M430 520 C430 446, 464 414, 506 414 C548 414, 584 446, 584 520 Z" fill="url(#softTeal)"/>
+    <rect x="494" y="384" width="24" height="30" rx="10" fill="#F1C27D"/>
+    <!-- Cheveux modernes -->
+    <path d="M474 344 C472 312, 488 298, 510 300 C530 302, 542 318, 538 346 Z" fill="#1E1B2E"/>
+    <!-- Visage -->
+    <rect x="478" y="320" width="56" height="66" rx="27" fill="#F3C68F"/>
+    <path d="M478 334 C488 318, 518 316, 534 332 C532 312, 518 302, 504 302 C488 302, 478 316, 478 334 Z" fill="#1E1B2E"/>
+    <circle cx="496" cy="350" r="2.4" fill="#1E1B2E"/>
+    <circle cx="516" cy="350" r="2.4" fill="#1E1B2E"/>
+    <path d="M498 366 Q506 372 514 366" stroke="#1E1B2E" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+  </g>
+
+  <!-- Étudiant 4 (Centre-Droite) : Jeune femme coiffure afro volumineuse, haut blanc & lavande -->
+  <g>
+    <!-- Chevelure afro arrière -->
+    <circle cx="382" cy="316" r="28" fill="#1B1328"/>
+    <circle cx="428" cy="316" r="28" fill="#1B1328"/>
+    <circle cx="405" cy="296" r="30" fill="#1B1328"/>
+    <!-- Buste -->
+    <path d="M332 520 C332 440, 366 404, 406 404 C446 404, 480 440, 480 520 Z" fill="#FFFFFF" stroke="#DDD6FE" stroke-width="2"/>
+    <path d="M380 405 Q406 438 432 405" fill="#EDE9FE"/>
+    <!-- Cou -->
+    <rect x="394" y="376" width="24" height="32" rx="10" fill="#6F412A"/>
+    <!-- Visage -->
+    <rect x="378" y="318" width="56" height="66" rx="28" fill="#7B482F"/>
+    <circle cx="396" cy="348" r="2.4" fill="#1B1328"/>
+    <circle cx="416" cy="348" r="2.4" fill="#1B1328"/>
+    <path d="M398 363 Q406 370 414 363" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+  </g>
+
+  <!-- Étudiant 3 (Premier plan central) : Étudiant souriant en pull violet profond AEPUD -->
+  <g>
+    <path d="M254 532 C254 446, 294 408, 342 408 C390 408, 430 446, 430 532 Z" fill="url(#violetPrimary)"/>
+    <!-- Col chemise blanche -->
+    <path d="M318 409 L342 442 L366 409 Z" fill="#FFFFFF"/>
+    <rect x="330" y="376" width="24" height="34" rx="10" fill="#D99B66"/>
+    <!-- Cheveux bouclés -->
+    <circle cx="322" cy="316" r="20" fill="#2A1B18"/>
+    <circle cx="342" cy="308" r="22" fill="#2A1B18"/>
+    <circle cx="362" cy="316" r="20" fill="#2A1B18"/>
+    <!-- Visage -->
+    <rect x="314" y="318" width="56" height="66" rx="28" fill="#E0A370"/>
+    <circle cx="332" cy="348" r="2.5" fill="#1E1430"/>
+    <circle cx="352" cy="348" r="2.5" fill="#1E1430"/>
+    <path d="M333 364 Q342 372 351 364" stroke="#1E1430" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+  </g>
+
+  <!-- Table / Bandeau communautaire d'avant-plan avec livres, ordinateur & symboles -->
+  <g filter="url(#cardDrop)">
+    <rect x="74" y="496" width="532" height="62" rx="22" fill="#FFFFFF" stroke="#DCD4F2" stroke-width="1.5"/>
+    <!-- Livre ouvert / Savoir -->
+    <rect x="116" y="513" width="38" height="28" rx="7" fill="#EDE9FE"/>
+    <path d="M124 521 H146 M124 527 H146 M124 533 H138" stroke="#5B21B6" stroke-width="2" stroke-linecap="round"/>
+    <text x="166" y="525" font-family="Plus Jakarta Sans, Inter, sans-serif" font-size="11.5" font-weight="800" fill="#151026">Diversité culturelle</text>
+    <text x="166" y="540" font-family="Inter, sans-serif" font-size="10" font-weight="500" fill="#6E6685">Rencontres &amp; ouverture</text>
+
+    <line x1="336" y1="510" x2="336" y2="544" stroke="#EAE6F3" stroke-width="1.5"/>
+
+    <!-- Badge Communauté -->
+    <rect x="358" y="513" width="38" height="28" rx="7" fill="#F5F3FF"/>
+    <circle cx="373" cy="527" r="5" fill="#6D28D9"/>
+    <circle cx="383" cy="527" r="5" fill="#F59E0B"/>
+    <text x="408" y="525" font-family="Plus Jakarta Sans, Inter, sans-serif" font-size="11.5" font-weight="800" fill="#151026">Communauté unie</text>
+    <text x="408" y="540" font-family="Inter, sans-serif" font-size="10" font-weight="500" fill="#6E6685">Pôle International · AEPUD</text>
+  </g>
+</svg>

@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pôle des Étudiants Internationaux · AEPUD — IUT de Saint-Dié</title>
-  <meta name="description" content="Un espace pour se rencontrer, s’entraider et construire ensemble une expérience étudiante plus enrichissante à l’IUT de Saint-Dié.">
+  <meta name="description" content="Un espace pour se rencontrer, s’entraider et construire ensemble une expérience étudiante plus enrichissante à l’IUT de Saint-Dié-des-Vosges.">
   <meta name="theme-color" content="#4C1D95">
 
   <!-- Open Graph / Partage Réseaux Sociaux -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Pôle des Étudiants Internationaux · AEPUD — IUT de Saint-Dié">
-  <meta property="og:description" content="L’IUT est aussi chez vous. Découvrez la communauté internationale de l’Association des Étudiants (AEPUD) de l’IUT de Saint-Dié.">
+  <meta property="og:description" content="L’IUT est aussi chez vous. Découvrez la communauté internationale de l’Association des Étudiants (AEPUD) de l’IUT de Saint-Dié-des-Vosges.">
 
   <!-- Icône du site -->
   <link rel="icon" type="image/svg+xml" href="assets/icons/logo-pole.svg">
@@ -33,12 +33,22 @@
   <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
 
   <!-- ========================================================================
-       NAVIGATION PRINCIPALE
+       NAVIGATION PRINCIPALE (6 SECTIONS ORGANISÉES)
        ======================================================================== -->
   <header class="site-header" id="site-header">
     <div class="container header-inner">
       <a href="#accueil" class="brand" aria-label="Pôle des Étudiants Internationaux — Accueil">
-        <img src="assets/icons/logo-pole.svg" alt="" class="brand-logo" width="42" height="42">
+        <span class="brand-logos">
+          <img
+            src="assets/images/logo-aepud.png"
+            alt="Logotype officiel de l'Association des Étudiants AEPUD"
+            data-i18n-alt="aepudLogoAlt"
+            class="brand-aepud-logo is-missing"
+            data-aepud-logo
+          >
+          <span class="brand-divider is-missing" data-aepud-divider aria-hidden="true"></span>
+          <img src="assets/icons/logo-pole.svg" alt="" class="brand-logo" width="40" height="40">
+        </span>
         <span class="brand-text">
           <span class="brand-title" data-i18n="brandTitle">Pôle International</span>
           <span class="brand-sub" data-i18n="brandSub">AEPUD · IUT de Saint-Dié</span>
@@ -48,10 +58,11 @@
       <nav class="main-nav" id="main-nav" aria-label="Navigation principale">
         <ul class="nav-list">
           <li><a href="#accueil" class="nav-link is-active" data-i18n="navHome">Accueil</a></li>
-          <li><a href="#le-pole" class="nav-link" data-i18n="navPole">Le Pôle</a></li>
-          <li><a href="#nos-activites" class="nav-link" data-i18n="navActivities">Nos Activités</a></li>
-          <li><a href="#notre-equipe" class="nav-link" data-i18n="navTeam">Notre Équipe</a></li>
-          <li><a href="#nous-rejoindre" class="nav-link" data-i18n="navJoin">Nous Rejoindre</a></li>
+          <li><a href="#notre-equipe" class="nav-link" data-i18n="navTeam">Notre équipe</a></li>
+          <li><a href="#le-pole" class="nav-link" data-i18n="navPole">Présentation du pôle</a></li>
+          <li><a href="#nos-initiatives" class="nav-link" data-i18n="navInitiatives">Nos initiatives</a></li>
+          <li><a href="#ressources" class="nav-link" data-i18n="navResources">Ressources &amp; accompagnement</a></li>
+          <li><a href="#contact" class="nav-link" data-i18n="navContact">Contact / Rejoindre</a></li>
         </ul>
       </nav>
 
@@ -82,7 +93,7 @@
 
   <main id="main-content">
     <!-- ======================================================================
-         3. SECTION HERO — PREMIÈRE IMPRESSION
+         1. ACCUEIL — SECTION HERO & ILLUSTRATION ÉDITORIALE INTERNATIONALE
          ====================================================================== -->
     <section class="hero" id="accueil">
       <div class="container hero-grid">
@@ -107,9 +118,14 @@
                 <path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </a>
-            <a href="#nous-rejoindre" class="btn btn--outline">
-              <span data-i18n="heroCtaJoin">NOUS REJOINDRE</span>
-            </a>
+            <button type="button" class="btn btn--outline" data-open-join-modal>
+              <span data-i18n="heroCtaJoin">REJOINDRE LE PÔLE</span>
+            </button>
+          </div>
+
+          <div class="hero-survey-nudge">
+            <span data-i18n="heroSurveyPrompt">Étudiant international à l’IUT ?</span>
+            <a href="#questionnaire" data-i18n="heroSurveyLink">Répondre au questionnaire (2 min) →</a>
           </div>
 
           <div class="hero-values" aria-label="Valeurs du pôle">
@@ -129,49 +145,116 @@
         </div>
 
         <div class="hero-visual" data-reveal>
-          <div class="hero-floating-card">
-            <div class="hero-floating-icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke-linecap="round"/>
-                <circle cx="9" cy="7" r="4"/>
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <div>
-              <strong data-i18n="heroFloatingTitle">Communauté ouverte</strong>
-              <span data-i18n="heroFloatingSub">Écoute, entraide &amp; vie étudiante</span>
-            </div>
-          </div>
-
-          <div class="hero-photo-frame">
+          <div class="hero-illustration-wrap">
             <img
-              id="hero-main-photo"
-              src="assets/images/hero-campus-placeholder.svg"
-              alt="Groupe diversifié d'étudiants internationaux réunis dans un cadre universitaire"
-              data-i18n-alt="heroPhotoAlt"
-              class="hero-photo"
+              src="assets/images/hero-international-community.svg"
+              alt="Illustration éditoriale représentant des étudiants internationaux de différentes cultures connectés autour du Pôle International de l'IUT de Saint-Dié"
+              data-i18n-alt="heroIllustrationAlt"
+              class="hero-illustration"
+              width="760"
+              height="620"
             >
-            <div class="hero-photo-caption">
-              <span class="hero-campus-pill">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                  <circle cx="12" cy="10" r="3"/>
-                </svg>
-                <span data-i18n="heroCampusTag">IUT de Saint-Dié-des-Vosges</span>
-              </span>
-            </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ======================================================================
-         4. SECTION — QUI SOMMES-NOUS ? (#le-pole)
+         2. NOTRE ÉQUIPE — LES DEUX REPRÉSENTANTS (#notre-equipe)
+         Placée immédiatement après la page d'accueil
          ====================================================================== -->
-    <section class="section section--subtle" id="le-pole">
+    <section class="section section--subtle" id="notre-equipe">
+      <div class="container">
+        <div class="team-header" data-reveal>
+          <span class="section-eyebrow" data-i18n="teamEyebrow">01 · Notre équipe</span>
+          <h2 class="section-title" data-i18n-html="teamTitleHtml">
+            Derrière le pôle, des personnes <span class="serif-accent">à votre écoute.</span>
+          </h2>
+          <p class="section-lead" data-i18n="teamLead">
+            Nous sommes là pour vous représenter, vous écouter et faire évoluer cette initiative avec vous.
+          </p>
+        </div>
+
+        <div class="team-grid" id="team-grid" data-reveal>
+          <!-- Représentant 01 : Ariel Hidinua -->
+          <article class="rep-card">
+            <div class="rep-portrait-wrap">
+              <img
+                src="assets/images/ariel-hidinua.jpg"
+                alt="Représentant 01 — Ariel Hidinua"
+                class="rep-portrait"
+                style="object-position: center 78%;"
+                loading="lazy"
+              >
+            </div>
+            <div class="rep-info">
+              <div>
+                <span class="rep-index">Représentant 01</span>
+                <h3 class="rep-name">Ariel Hidinua</h3>
+                <span class="rep-role">Représentant des étudiants internationaux</span>
+                <span class="rep-bio-label">Parcours &amp; Engagement</span>
+                <div class="rep-bio">
+                  <p>Étudiant angolais en BUT GEII à l’IUT de Saint-Dié, Ariel a obtenu une bourse d’excellence lui permettant de poursuivre ses études en France. Ancien président du pôle académique de l’association des élèves du lycée Eiffel d’Ondjiva et membre du pôle Génie de la Production Industrielle de l’ISPTEC, il possède une expérience en leadership étudiant. Il s’investit également dans l’entrepreneuriat social à travers Serenus, un projet dédié à la santé mentale bénéficiant d’un accompagnement dans l’écosystème de l’UNICEF.</p>
+                  <p>Aujourd’hui, il souhaite mettre son expérience et son engagement au service de la communauté internationale de l’IUT.</p>
+                </div>
+              </div>
+              <div class="rep-footer">
+                <span class="rep-contact-label">Contact direct (E-mail universitaire)</span>
+                <a href="mailto:ariel-aleluia.hidinua9@etu.univ-lorraine.fr" class="rep-contact-link">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                  <span>ariel-aleluia.hidinua9@etu.univ-lorraine.fr</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Représentant 02 : Credo Charles -->
+          <article class="rep-card">
+            <div class="rep-portrait-wrap">
+              <img
+                src="assets/images/credo-charles.jpg"
+                alt="Représentant 02 — Credo Charles"
+                class="rep-portrait"
+                style="object-position: center 80%;"
+                loading="lazy"
+              >
+            </div>
+            <div class="rep-info">
+              <div>
+                <span class="rep-index">Représentant 02</span>
+                <h3 class="rep-name">Credo Charles</h3>
+                <span class="rep-role">Représentant des étudiants internationaux</span>
+                <span class="rep-bio-label">Parcours &amp; Engagement</span>
+                <div class="rep-bio">
+                  <p>Étudiant en Génie Électrique et Informatique Industrielle en France, lauréat d’une bourse d’excellence en 2024. Passionné par l’automatisation industrielle et les systèmes électriques. Ancien président de l’association des élèves du Lycée Eiffel d’Ondjiva et actuellement représentant des étudiants internationaux à l’IUT de Saint-Dié-des-Vosges. Doté d’un esprit de leadership, d’adaptation et de travail en équipe, je suis motivé par l’apprentissage et les nouveaux défis.</p>
+                </div>
+              </div>
+              <div class="rep-footer">
+                <span class="rep-contact-label">Contact direct (E-mail universitaire)</span>
+                <a href="mailto:credo.charles2@etu.univ-lorraine.fr" class="rep-contact-link">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                  <span>credo.charles2@etu.univ-lorraine.fr</span>
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         3. PRÉSENTATION DU PÔLE (#le-pole)
+         ====================================================================== -->
+    <section class="section" id="le-pole">
       <div class="container about-layout">
         <div class="about-sticky" data-reveal>
-          <span class="section-eyebrow" data-i18n="aboutEyebrow">01 · Qui sommes-nous ?</span>
+          <span class="section-eyebrow" data-i18n="aboutEyebrow">02 · Présentation du pôle</span>
           <h2 class="section-title" data-i18n-html="aboutTitleHtml">
             Bienvenue dans votre <span class="serif-accent">communauté.</span>
           </h2>
@@ -243,19 +326,19 @@
     </section>
 
     <!-- ======================================================================
-         5. SECTION — NOS INITIATIVES (5 Cartes Interactives)
+         4. NOS INITIATIVES & ACTIVITÉS (#nos-initiatives)
          ====================================================================== -->
-    <section class="section" id="nos-initiatives">
+    <section class="section section--subtle" id="nos-initiatives">
       <div class="container">
         <div class="section-header-split" data-reveal>
           <div>
-            <span class="section-eyebrow" data-i18n="initEyebrow">02 · Nos Initiatives</span>
+            <span class="section-eyebrow" data-i18n="initEyebrow">03 · Nos initiatives</span>
             <h2 class="section-title" data-i18n-html="initTitleHtml">
               Ensemble, faisons vivre notre <span class="serif-accent">communauté.</span>
             </h2>
           </div>
           <p class="section-lead" data-i18n="initLead">
-            Cinq piliers complémentaires pour accompagner votre parcours et enrichir la vie collective à l’IUT.
+            Cinq piliers complémentaires pour accompagner votre parcours, créer du lien et dynamiser la vie étudiante à l’IUT.
           </p>
         </div>
 
@@ -366,213 +449,149 @@
             </div>
           </article>
         </div>
+
+        <!-- Agenda & Prochaines activités (intégré directement sans duplication) -->
+        <div class="activities-integrated-wrap" id="events-container" data-reveal>
+          <div class="activities-banner">
+            <div class="activities-banner-copy">
+              <div class="events-empty-badge">
+                <span class="pulse-dot" aria-hidden="true"></span>
+                <span data-i18n="actSubBadge">Agenda &amp; Vie étudiante</span>
+              </div>
+              <h3 class="activities-banner-title" data-i18n="actSubTitle">Les prochaines activités se construisent avec vous.</h3>
+              <p class="activities-banner-text" data-i18n="actSubText">
+                Sorties découvertes, rencontres interculturelles et temps d’entraide : aucune date fictive n’est affichée. Suivez nos annonces sur Instagram @AEPUD ou partagez vos envies via notre questionnaire.
+              </p>
+            </div>
+            <div class="activities-banner-actions">
+              <button type="button" class="btn btn--primary" data-open-join-modal>
+                <span data-i18n="actSubBtnJoin">Rejoindre nos activités</span>
+              </button>
+              <a href="#questionnaire" class="btn btn--outline">
+                <span data-i18n="actSubBtnSurvey">Suggérer une initiative</span>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- ======================================================================
-         6. SECTION — NOS ACTIVITÉS ET ÉVÉNEMENTS (#nos-activites)
+         5. RESSOURCES ET ACCOMPAGNEMENT (#ressources)
          ====================================================================== -->
-    <section class="section section--subtle" id="nos-activites">
+    <section class="section" id="ressources">
       <div class="container">
         <div class="section-header-split" data-reveal>
           <div>
-            <span class="section-eyebrow" data-i18n="actEyebrow">03 · Nos Activités &amp; Événements</span>
-            <h2 class="section-title" data-i18n-html="actTitleHtml">
-              La vie étudiante se construit <span class="serif-accent">ensemble.</span>
+            <span class="section-eyebrow" data-i18n="resEyebrow">04 · Ressources et accompagnement</span>
+            <h2 class="section-title" data-i18n-html="resTitleHtml">
+              Des repères concrets pour faciliter <span class="serif-accent">votre quotidien.</span>
             </h2>
           </div>
-          <p class="section-lead" data-i18n="actLead">
-            Sorties découvertes, rencontres interculturelles, temps d’entraide et moments forts rythment l’année avec vous.
+          <p class="section-lead" data-i18n="resLead">
+            Retrouvez les portails essentiels pour vos démarches en France et n’hésitez pas à solliciter vos représentants pour un conseil ou un retour d’expérience.
           </p>
         </div>
 
-        <div class="activities-toolbar" data-reveal>
-          <div class="activity-Format-tags">
-            <span class="format-pill" data-i18n="actTag1">Prochaines activités</span>
-            <span class="format-pill" data-i18n="actTag2">Sorties organisées</span>
-            <span class="format-pill" data-i18n="actTag3">Rencontres interculturelles</span>
-            <span class="format-pill" data-i18n="actTag4">Événements du pôle</span>
-            <span class="format-pill" data-i18n="actTag5">Moments forts</span>
-          </div>
+        <div class="resources-grid" id="resources-grid" data-reveal></div>
 
-          <div class="events-filters" id="events-filter-wrap" role="group" aria-label="Filtrer les événements">
-            <button type="button" class="filter-btn is-active" data-event-filter="all" data-i18n="filterAll">Tout voir</button>
-            <button type="button" class="filter-btn" data-event-filter="upcoming" data-i18n="filterUpcoming">À venir</button>
-            <button type="button" class="filter-btn" data-event-filter="past" data-i18n="filterPast">Terminé</button>
-          </div>
-        </div>
-
-        <div id="events-container" data-reveal></div>
-      </div>
-    </section>
-
-    <!-- ======================================================================
-         7. SECTION — NOTRE ÉQUIPE (#notre-equipe)
-         ====================================================================== -->
-    <section class="section" id="notre-equipe">
-      <div class="container">
-        <div class="team-header" data-reveal>
-          <span class="section-eyebrow" data-i18n="teamEyebrow">04 · Notre Équipe</span>
-          <h2 class="section-title" data-i18n-html="teamTitleHtml">
-            Derrière le pôle, des personnes <span class="serif-accent">à votre écoute.</span>
-          </h2>
-          <p class="section-lead" data-i18n="teamLead">
-            Nous sommes là pour vous représenter, vous écouter et faire évoluer cette initiative avec vous.
-          </p>
-        </div>
-
-        <div class="team-grid" id="team-grid" data-reveal></div>
-
-        <div class="team-admin-bar" data-reveal>
-          <p class="team-admin-note" data-i18n="teamAdminNote">
-            Responsables du pôle : vous pouvez prévisualiser vos photos et informations directement ici ou dans js/content.js.
-          </p>
-          <button type="button" class="btn-text-action" id="open-team-editor">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span data-i18n="teamAdminBtn">Personnaliser les profils</span>
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======================================================================
-         8. SECTION — PARTICIPEZ À LA CONSTRUCTION DU PÔLE (#nous-rejoindre)
-         ====================================================================== -->
-    <section class="section participate-section" id="nous-rejoindre">
-      <div class="container">
-        <div class="participate-header" data-reveal>
-          <span class="section-eyebrow" data-i18n="partEyebrow">05 · Nous Rejoindre &amp; Participer</span>
-          <h2 class="section-title" data-i18n-html="partTitleHtml">
-            Votre expérience compte. <span class="serif-accent">Votre voix aussi.</span>
-          </h2>
-          <p class="section-lead" data-i18n="partLead">
-            Chaque étudiant a une expérience, des besoins et des idées qui méritent d’être entendus. Aidez-nous à construire un pôle qui vous ressemble.
-          </p>
-        </div>
-
-        <div class="participate-grid">
-          <!-- Option 1 -->
-          <article class="participate-card" data-reveal>
-            <div>
-              <span class="participate-option-tag" data-i18n="opt1Tag">Option 01 · Expression &amp; Besoins</span>
-              <h3 class="participate-card-title" data-i18n="opt1Title">Partager mes besoins</h3>
-              <p class="participate-card-desc" data-i18n="opt1Desc">
-                Faites-nous part de votre réalité étudiante afin d’orienter concrètement les actions prioritaires du pôle :
-              </p>
-              <ul class="participate-list">
-                <li>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span data-i18n="opt1Bullet1">Vos informations générales d’étudiant à l’IUT</span>
-                </li>
-                <li>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span data-i18n="opt1Bullet2">Vos besoins actuels et les difficultés rencontrées</span>
-                </li>
-                <li>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span data-i18n="opt1Bullet3">Les domaines dans lesquels vous souhaiteriez être accompagné</span>
-                </li>
-                <li>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span data-i18n="opt1Bullet4">Vos idées et suggestions pour améliorer la vie étudiante internationale</span>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <button type="button" class="btn btn--white" data-form-trigger="needs">
-                <span data-i18n="opt1Btn">PARTAGER MES BESOINS</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                  <path d="M7 17L17 7M17 7H7M17 7V17" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-            </div>
-          </article>
-
-          <!-- Option 2 -->
-          <article class="participate-card" data-reveal>
-            <div>
-              <span class="participate-option-tag" data-i18n="opt2Tag">Option 02 · Engagement Associatif</span>
-              <h3 class="participate-card-title" data-i18n="opt2Title">Rejoindre le pôle</h3>
-              <p class="participate-card-desc" data-i18n="opt2Desc">
-                Vous souhaitez contribuer activement, proposer des initiatives ou aider à accueillir d’autres étudiants ?
-              </p>
-              <ul class="participate-list">
-                <li>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span data-i18n="opt2Bullet1">Manifester votre intérêt pour participer aux projets du pôle</span>
-                </li>
-                <li>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span data-i18n="opt2Bullet2">Co-construire des sorties, rencontres et actions d’entraide</span>
-                </li>
-                <li>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span data-i18n="opt2Bullet3">Rejoindre une dynamique conviviale au sein de l’AEPUD</span>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <button type="button" class="btn btn--ghost-light" data-form-trigger="join">
-                <span data-i18n="opt2Btn">REJOINDRE LE PÔLE</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                  <path d="M7 17L17 7M17 7H7M17 7V17" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-            </div>
-          </article>
-        </div>
-
-        <!-- Mention RGPD & Confidentialité -->
-        <div class="privacy-box" data-reveal>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-          </svg>
-          <p data-i18n="privacyNotice">
-            Confidentialité &amp; protection des données : les informations recueillies via notre formulaire sont utilisées exclusivement dans le cadre des activités du Pôle des Étudiants Internationaux et de l’Association des Étudiants (AEPUD — IUT de Saint-Dié), conformément à la réglementation applicable sur la protection des données personnelles (RGPD). Aucune donnée n’est cédée à des tiers.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======================================================================
-         9. SECTION — GALERIE MASONRY (#galerie)
-         ====================================================================== -->
-    <section class="section" id="galerie">
-      <div class="container">
-        <div class="section-header-split" data-reveal>
+        <div class="resources-help-strip" data-reveal>
           <div>
-            <span class="section-eyebrow" data-i18n="galEyebrow">06 · Galerie</span>
-            <h2 class="section-title" data-i18n-html="galTitleHtml">
-              Des rencontres, des expériences, <span class="serif-accent">des souvenirs.</span>
-            </h2>
+            <h3 class="resources-help-title" data-i18n="resHelpTitle">Besoin d’un coup de pouce ou d’une orientation entre étudiants ?</h3>
+            <p class="resources-help-desc" data-i18n="resHelpDesc">
+              Nos représentants sont disponibles par e-mail pour vous écouter et vous orienter dans vos démarches à l’IUT.
+            </p>
           </div>
-          <p class="section-lead" data-i18n="galLead">
-            Cet espace accueillera au fil de l’année les photographies authentiques de vos sorties, rencontres et temps forts.
-          </p>
+          <div class="resources-help-emails">
+            <a href="mailto:ariel-aleluia.hidinua9@etu.univ-lorraine.fr" class="mini-rep-mail">
+              ✉ Ariel Hidinua
+            </a>
+            <a href="mailto:credo.charles2@etu.univ-lorraine.fr" class="mini-rep-mail">
+              ✉ Credo Charles
+            </a>
+          </div>
         </div>
-
-        <div class="gallery-masonry" id="gallery-masonry" data-reveal></div>
       </div>
     </section>
 
     <!-- ======================================================================
-         10. SECTION — CONTACT ET RÉSEAUX SOCIAUX (#contact)
+         SECTION PHARE — QUESTIONNAIRE GOOGLE FORMS (#questionnaire)
+         ====================================================================== -->
+    <section class="section survey-spotlight" id="questionnaire">
+      <div class="container survey-grid">
+        <div class="survey-content" data-reveal>
+          <div class="survey-badge">
+            <span class="survey-badge-dot" aria-hidden="true"></span>
+            <span data-i18n="surveyBadge">Consultation étudiante · Priorité du Pôle</span>
+          </div>
+
+          <h2 class="survey-title" data-i18n="surveyTitle">
+            TON EXPÉRIENCE COMPTE. FAIS-NOUS ENTENDRE TA VOIX !
+          </h2>
+
+          <p class="survey-quote-lead" data-i18n="surveyText1">
+            « Logement, démarches administratives, intégration, études, stages, alternance… Nous souhaitons mieux comprendre les défis que tu rencontres afin de construire des initiatives réellement utiles à la communauté internationale de l’IUT. »
+          </p>
+
+          <p class="survey-quote-strong" data-i18n="surveyText2">
+            « Quelques minutes suffisent pour nous aider à mieux agir. »
+          </p>
+
+          <div class="survey-cta-wrap">
+            <a
+              href="https://forms.gle/CHkm3dPJak6t5zyA7"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn--survey-cta"
+            >
+              <span data-i18n="surveyCtaBtn">RÉPONDRE AU QUESTIONNAIRE</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+                <path d="M7 17L17 7M17 7H7M17 7V17" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+
+            <div class="survey-audience-note">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="16" x2="12" y2="12"/>
+                <line x1="12" y1="8" x2="12.01" y2="8"/>
+              </svg>
+              <p data-i18n="surveyAudienceNote">
+                Ce questionnaire est destiné aux étudiants internationaux de l’IUT de Saint-Dié-des-Vosges. Vos réponses nous permettent d’identifier des besoins réels et d’orienter concrètement les prochaines actions du pôle (traitement confidentiel dans le cadre associatif de l’AEPUD).
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="survey-visual" data-reveal>
+          <div class="survey-illustration-card">
+            <img
+              src="assets/images/survey-voice-illustration.svg"
+              alt="Illustration symbolisant l'expression et la participation des étudiants internationaux au questionnaire"
+              data-i18n-alt="surveyIllustrationAlt"
+              width="560"
+              height="460"
+              loading="lazy"
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         6. CONTACT / REJOINDRE LE PÔLE (#contact)
+         Sans e-mail général ni autres réseaux secondaires ; contacts directs maintenus
          ====================================================================== -->
     <section class="section section--soft" id="contact">
       <div class="container">
         <div class="contact-card" data-reveal>
           <div>
-            <span class="section-eyebrow" data-i18n="contactEyebrow">07 · Contact &amp; Réseaux</span>
+            <span class="section-eyebrow" data-i18n="contactEyebrow">05 · Contact / Rejoindre le pôle</span>
             <h2 class="section-title" data-i18n-html="contactTitleHtml">
-              Restons en <span class="serif-accent">contact !</span>
+              Envie d’échanger ou de <span class="serif-accent">nous rejoindre ?</span>
             </h2>
             <p class="section-lead" style="margin-top: 1rem;" data-i18n="contactLead">
-              Une question, une suggestion ou simplement envie d’échanger avec l’équipe du pôle ? Écrivez-nous ou retrouvez-nous sur le campus de l’IUT.
+              Retrouvez l’actualité de l’Association des Étudiants sur Instagram, participez à la dynamique du pôle ou écrivez directement à vos deux représentants.
             </p>
 
             <div class="contact-entities">
@@ -580,30 +599,32 @@
               <span class="entity-chip" data-i18n="footerPoleItem">Pôle des Étudiants Internationaux</span>
             </div>
 
-            <button type="button" class="btn btn--primary" id="main-contact-btn">
-              <span data-i18n="contactBtn">NOUS CONTACTER</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                <polyline points="22,6 12,13 2,6"/>
-              </svg>
-            </button>
+            <div class="contact-cta-group">
+              <button type="button" class="btn btn--primary" data-open-join-modal>
+                <span data-i18n="contactJoinBtn">REJOINDRE LE PÔLE</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <a
+                href="https://forms.gle/CHkm3dPJak6t5zyA7"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn--outline"
+              >
+                <span data-i18n="contactSurveySecondaryBtn">RÉPONDRE AU QUESTIONNAIRE</span>
+              </a>
+            </div>
           </div>
 
           <div class="contact-channels">
-            <div class="channel-row">
-              <div class="channel-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                  <polyline points="22,6 12,13 2,6"/>
-                </svg>
-              </div>
-              <div class="channel-meta">
-                <span class="channel-label" data-i18n="contactEmailLabel">Adresse e-mail officielle</span>
-                <span class="channel-value" id="contact-email-value">[À RENSEIGNER]</span>
-              </div>
-            </div>
-
-            <div class="channel-row">
+            <!-- Instagram officiel de l'Association -->
+            <a
+              href="https://www.instagram.com/AEPUD/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="channel-row"
+            >
               <div class="channel-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
@@ -612,27 +633,28 @@
                 </svg>
               </div>
               <div class="channel-meta">
-                <span class="channel-label" data-i18n="contactInstaLabel">Compte Instagram</span>
-                <span class="channel-value" id="contact-insta-value"><a href="https://instagram.com/AEPUD" target="_blank" rel="noopener noreferrer">@AEPUD</a></span>
+                <span class="channel-label" data-i18n="contactInstaLabel">Instagram officiel de l’association</span>
+                <span class="channel-value">@AEPUD</span>
+                <span class="channel-sub" data-i18n="contactInstaSub">Suivre les activités et nous écrire en message privé</span>
+              </div>
+            </a>
+
+            <!-- Contacts individuels des deux représentants -->
+            <div class="contact-reps-box">
+              <span class="contact-reps-heading" data-i18n="contactRepsTitle">Contacter directement les représentants</span>
+              <div class="contact-reps-list" id="contact-reps-list">
+                <a href="mailto:ariel-aleluia.hidinua9@etu.univ-lorraine.fr" class="contact-rep-item">
+                  <span class="contact-rep-name">Ariel Hidinua</span>
+                  <span class="contact-rep-email">✉ ariel-aleluia.hidinua9@etu.univ-lorraine.fr</span>
+                </a>
+                <a href="mailto:credo.charles2@etu.univ-lorraine.fr" class="contact-rep-item">
+                  <span class="contact-rep-name">Credo Charles</span>
+                  <span class="contact-rep-email">✉ credo.charles2@etu.univ-lorraine.fr</span>
+                </a>
               </div>
             </div>
 
-            <div class="channel-row">
-              <div class="channel-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="18" cy="5" r="3"/>
-                  <circle cx="6" cy="12" r="3"/>
-                  <circle cx="18" cy="19" r="3"/>
-                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
-                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
-                </svg>
-              </div>
-              <div class="channel-meta">
-                <span class="channel-label" data-i18n="contactOtherLabel">Autres réseaux sociaux</span>
-                <span class="channel-value" id="contact-other-value">[À RENSEIGNER]</span>
-              </div>
-            </div>
-
+            <!-- Localisation Campus -->
             <div class="channel-row">
               <div class="channel-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -642,7 +664,7 @@
               </div>
               <div class="channel-meta">
                 <span class="channel-label" data-i18n="contactCampusLabel">Campus</span>
-                <span class="channel-value" id="contact-campus-value">IUT de Saint-Dié-des-Vosges</span>
+                <span class="channel-value" id="contact-campus-value">IUT de Saint-Dié-des-Vosges · 11 Rue de l’Université, 88100 Saint-Dié-des-Vosges</span>
               </div>
             </div>
           </div>
@@ -659,7 +681,17 @@
       <div class="footer-grid">
         <div>
           <a href="#accueil" class="brand">
-            <img src="assets/icons/logo-pole.svg" alt="" class="brand-logo" width="40" height="40">
+            <span class="brand-logos">
+              <img
+                src="assets/images/logo-aepud.png"
+                alt="Logotype officiel de l'Association des Étudiants AEPUD"
+                data-i18n-alt="aepudLogoAlt"
+                class="brand-aepud-logo is-missing"
+                data-aepud-logo
+              >
+              <span class="brand-divider is-missing" data-aepud-divider aria-hidden="true"></span>
+              <img src="assets/icons/logo-pole.svg" alt="" class="brand-logo" width="38" height="38">
+            </span>
             <span class="brand-text">
               <span class="brand-title" data-i18n="brandTitle">Pôle International</span>
               <span class="brand-sub" data-i18n="brandSub">AEPUD · IUT de Saint-Dié</span>
@@ -675,133 +707,111 @@
           <h3 class="footer-col-title" data-i18n="footerNavTitle">Navigation</h3>
           <ul class="footer-links">
             <li><a href="#accueil" data-i18n="navHome">Accueil</a></li>
-            <li><a href="#le-pole" data-i18n="navPole">Le Pôle</a></li>
-            <li><a href="#nos-activites" data-i18n="navActivities">Nos Activités</a></li>
-            <li><a href="#notre-equipe" data-i18n="navTeam">Notre Équipe</a></li>
-            <li><a href="#nous-rejoindre" data-i18n="navJoin">Nous Rejoindre</a></li>
+            <li><a href="#notre-equipe" data-i18n="navTeam">Notre équipe</a></li>
+            <li><a href="#le-pole" data-i18n="navPole">Présentation du pôle</a></li>
+            <li><a href="#nos-initiatives" data-i18n="navInitiatives">Nos initiatives</a></li>
+            <li><a href="#ressources" data-i18n="navResources">Ressources &amp; accompagnement</a></li>
+            <li><a href="#contact" data-i18n="navContact">Contact / Rejoindre</a></li>
           </ul>
         </div>
 
         <div>
-          <h3 class="footer-col-title" data-i18n="footerInfoTitle">Organisation</h3>
+          <h3 class="footer-col-title" data-i18n="footerInfoTitle">Contacts &amp; Liens</h3>
           <ul class="footer-links">
-            <li><a href="#contact" data-i18n="footerAssocItem">Association des Étudiants (AEPUD)</a></li>
-            <li><a href="#le-pole" data-i18n="footerPoleItem">Pôle des Étudiants Internationaux</a></li>
-            <li><a href="#contact" data-i18n="footerIutItem">IUT de Saint-Dié-des-Vosges</a></li>
+            <li><a href="https://www.instagram.com/AEPUD/" target="_blank" rel="noopener noreferrer">Instagram @AEPUD ↗</a></li>
+            <li><a href="https://forms.gle/CHkm3dPJak6t5zyA7" target="_blank" rel="noopener noreferrer" data-i18n="footerSurveyLink">Questionnaire étudiants internationaux</a></li>
+            <li><a href="mailto:ariel-aleluia.hidinua9@etu.univ-lorraine.fr">Ariel Hidinua (E-mail)</a></li>
+            <li><a href="mailto:credo.charles2@etu.univ-lorraine.fr">Credo Charles (E-mail)</a></li>
           </ul>
         </div>
       </div>
 
       <div class="footer-bottom">
-        <p>© <span id="current-year">2026</span> — <span data-i18n="footerRights">Pôle des Étudiants Internationaux · AEPUD — IUT de Saint-Dié. Tous droits réservés.</span></p>
+        <p>© <span id="current-year">2026</span> — <span data-i18n="footerRights">Pôle des Étudiants Internationaux · AEPUD — IUT de Saint-Dié-des-Vosges. Tous droits réservés.</span></p>
         <a href="#accueil" class="back-to-top" data-i18n="backToTop">Haut de page ↑</a>
       </div>
     </div>
   </footer>
 
   <!-- ========================================================================
-       MODALES INTERACTIVES (GOOGLE FORMS, ÉQUIPE, CONTACT & LIGHTBOX)
+       FENÊTRE MODALE « REJOINDRE LE PÔLE » (#join-modal)
        ======================================================================== -->
-
-  <!-- Modale Google Forms (active tant que [GOOGLE_FORMS_URL] n'est pas remplacé) -->
-  <div class="modal-backdrop" id="forms-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="forms-modal-title">
+  <div
+    class="modal-backdrop"
+    id="join-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-hidden="true"
+    aria-labelledby="join-modal-title"
+  >
     <div class="modal-dialog">
       <div class="modal-header">
-        <h3 class="modal-title" id="forms-modal-title" data-i18n="formModalTitleNeeds">Partager mes besoins — Formulaire</h3>
-        <button type="button" class="modal-close" data-modal-close aria-label="Fermer">✕</button>
+        <div>
+          <span class="modal-eyebrow" data-i18n="joinModalBadge">Communauté Internationale · AEPUD</span>
+          <h3 class="modal-title" id="join-modal-title" data-i18n="joinModalTitle">
+            Envie de rejoindre notre communauté ?
+          </h3>
+        </div>
+        <button
+          type="button"
+          class="modal-close"
+          data-modal-close
+          data-i18n-aria="joinModalCloseAria"
+          aria-label="Fermer la fenêtre"
+        >✕</button>
       </div>
-      <p class="section-lead" style="font-size: 0.96rem; margin-bottom: 1.25rem;" data-i18n="formModalPendingDesc">
-        Le lien officiel Google Forms ([GOOGLE_FORMS_URL]) est prêt à être connecté dans js/content.js. Vous pouvez tester ou renseigner l’URL ci-dessous pour l’ouvrir immédiatement :
-      </p>
-      <div class="field-group">
-        <label class="field-label" for="forms-url-input" data-i18n="formModalUrlLabel">Lien Google Forms (pour aperçu ou configuration rapide)</label>
-        <input type="url" id="forms-url-input" class="field-input" placeholder="https://docs.google.com/forms/...">
-      </div>
-      <div class="modal-actions">
-        <button type="button" class="btn btn--outline" data-modal-close data-i18n="formModalCloseBtn">Fermer</button>
-        <button type="button" class="btn btn--primary" id="forms-save-open-btn" data-i18n="formModalOpenBtn">Enregistrer &amp; Ouvrir le formulaire</button>
-      </div>
-    </div>
-  </div>
 
-  <!-- Modale Interface de Personnalisation des Représentants -->
-  <div class="modal-backdrop" id="team-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="team-modal-title">
-    <div class="modal-dialog">
-      <div class="modal-header">
-        <h3 class="modal-title" id="team-modal-title" data-i18n="teamModalTitle">Personnaliser les représentants</h3>
-        <button type="button" class="modal-close" data-modal-close aria-label="Fermer">✕</button>
-      </div>
-      <p style="font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 1.2rem;" data-i18n="teamModalDesc">
-        Testez vos portraits et informations en direct sur la page, puis copiez la configuration prête à coller dans js/content.js.
+      <p class="join-modal-lead" data-i18n="joinModalText">
+        « Pour participer à nos initiatives et suivre nos activités, il suffit de nous contacter sur Instagram. Nous serons ravis d’échanger avec toi ! »
       </p>
 
-      <div class="form-tabs" role="tablist">
-        <button type="button" class="form-tab is-active" data-rep-tab="0" data-i18n="teamRepLabel1">Représentant 01</button>
-        <button type="button" class="form-tab" data-rep-tab="1" data-i18n="teamRepLabel2">Représentant 02</button>
+      <div class="join-insta-card">
+        <div class="join-insta-top">
+          <div class="join-insta-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+          </div>
+          <div>
+            <span class="join-insta-label" data-i18n="joinModalInstaLabel">Instagram officiel de l’association</span>
+            <strong class="join-insta-handle">@AEPUD</strong>
+          </div>
+        </div>
+
+        <a
+          href="https://www.instagram.com/AEPUD/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn--instagram"
+        >
+          <span data-i18n="joinModalInstaBtn">Nous contacter sur Instagram</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M7 17L17 7M17 7H7M17 7V17" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
       </div>
 
-      <div class="field-group">
-        <label class="field-label" for="rep-photo-file" data-i18n="teamPhotoInputLabel">Choisir une photographie (portrait)</label>
-        <input type="file" id="rep-photo-file" class="field-input" accept="image/*">
-      </div>
-      <div class="field-group">
-        <label class="field-label" for="rep-name-input" data-i18n="teamNameInputLabel">Nom complet</label>
-        <input type="text" id="rep-name-input" class="field-input" placeholder="Prénom Nom">
-      </div>
-      <div class="field-group">
-        <label class="field-label" for="rep-bio-input" data-i18n="teamBioInputLabel">Courte biographie</label>
-        <textarea id="rep-bio-input" class="field-textarea" placeholder="Filière à l'IUT, parcours et mot d'accueil..."></textarea>
-      </div>
-      <div class="field-group">
-        <label class="field-label" for="rep-contact-input" data-i18n="teamContactInputLabel">Contact (e-mail ou lien réseau social)</label>
-        <input type="text" id="rep-contact-input" class="field-input" placeholder="prenom.nom@etu.univ-lorraine.fr ou @instagram">
-      </div>
-
-      <div class="modal-actions">
-        <button type="button" class="btn btn--outline" id="rep-reset-btn" data-i18n="teamResetBtn">Réinitialiser</button>
-        <button type="button" class="btn btn--outline" id="rep-copy-config-btn" data-i18n="teamCopyConfigBtn">Copier le code pour content.js</button>
-        <button type="button" class="btn btn--primary" id="rep-apply-btn" data-i18n="teamApplyBtn">Appliquer l'aperçu</button>
+      <div class="join-reps-section">
+        <p class="join-reps-heading" data-i18n="joinModalRepsHeading">
+          Ou écrire directement aux représentants :
+        </p>
+        <div class="join-reps-grid" id="join-modal-reps">
+          <a href="mailto:ariel-aleluia.hidinua9@etu.univ-lorraine.fr" class="contact-rep-item">
+            <span class="contact-rep-name">Ariel Hidinua — Représentant des étudiants internationaux</span>
+            <span class="contact-rep-email">✉ ariel-aleluia.hidinua9@etu.univ-lorraine.fr</span>
+          </a>
+          <a href="mailto:credo.charles2@etu.univ-lorraine.fr" class="contact-rep-item">
+            <span class="contact-rep-name">Credo Charles — Représentant des étudiants internationaux</span>
+            <span class="contact-rep-email">✉ credo.charles2@etu.univ-lorraine.fr</span>
+          </a>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Modale Information Contact (active tant que l'e-mail est [À RENSEIGNER]) -->
-  <div class="modal-backdrop" id="contact-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="contact-modal-title">
-    <div class="modal-dialog">
-      <div class="modal-header">
-        <h3 class="modal-title" id="contact-modal-title" data-i18n="contactModalTitle">Contacter le Pôle International</h3>
-        <button type="button" class="modal-close" data-modal-close aria-label="Fermer">✕</button>
-      </div>
-      <p style="font-size: 0.98rem; color: var(--text-secondary); line-height: 1.7;" data-i18n="contactModalPending">
-        Vous pouvez dès maintenant nous écrire directement via le compte Instagram officiel de l’association (@AEPUD). L’adresse e-mail dédiée sera ajoutée prochainement.
-      </p>
-      <div class="modal-actions">
-        <button type="button" class="btn btn--outline" data-modal-close data-i18n="formModalCloseBtn">Fermer</button>
-        <a href="https://instagram.com/AEPUD" target="_blank" rel="noopener noreferrer" class="btn btn--primary" data-i18n="contactModalInstaBtn">Écrire sur Instagram (@AEPUD)</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Lightbox Plein Écran Galerie -->
-  <div class="modal-backdrop" id="lightbox-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Aperçu galerie plein écran">
-    <div class="lightbox-content">
-      <div class="lightbox-bar">
-        <span id="lightbox-counter" style="font-family: var(--font-display); font-weight: 700;">1 / 6</span>
-        <button type="button" class="modal-close" data-modal-close data-i18n-aria="lightboxCloseAria" aria-label="Fermer l'aperçu plein écran">✕</button>
-      </div>
-      <div class="lightbox-stage">
-        <button type="button" class="lightbox-nav lightbox-prev" id="lightbox-prev" data-i18n-aria="lightboxPrevAria" aria-label="Image précédente">←</button>
-        <img src="assets/images/gallery-1.svg" alt="" class="lightbox-img" id="lightbox-image">
-        <button type="button" class="lightbox-nav lightbox-next" id="lightbox-next" data-i18n-aria="lightboxNextAria" aria-label="Image suivante">→</button>
-      </div>
-      <p id="lightbox-caption" style="color: #EDE9FE; font-size: 0.95rem; text-align: center;"></p>
-    </div>
-  </div>
-
-  <!-- Notification Toast -->
-  <div class="toast" id="app-toast" role="status" aria-live="polite"></div>
-
-  <!-- Scripts -->
+  <!-- Scripts publics -->
   <script src="js/content.js"></script>
   <script src="js/main.js"></script>
 </body>

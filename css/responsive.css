@@ -3,22 +3,85 @@
    Approche fluide & Mobile-Friendly (AEPUD — IUT de Saint-Dié)
    ========================================================================== */
 
-/* Tablettes & Petits ordinateurs portables (<= 1040px) */
-@media (max-width: 1040px) {
+/* Navigation 6 entrées : passage fluide au menu mobile sous 1120px */
+@media (max-width: 1120px) {
+  :root {
+    --header-height: 74px;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+  }
+
+  .main-nav {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-medium);
+    box-shadow: var(--shadow-lg);
+    padding: 1.5rem var(--container-padding) 2rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.25rem;
+    transform: translateY(-12px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform var(--transition-base), opacity var(--transition-base), visibility var(--transition-base);
+  }
+
+  .main-nav.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+    width: 100%;
+  }
+
+  .nav-list li {
+    width: 100%;
+  }
+
+  .nav-link {
+    display: block;
+    width: 100%;
+    font-size: 1.06rem;
+    padding: 0.72rem 0.5rem;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .nav-link::after {
+    display: none;
+  }
+}
+
+/* Tablettes & Petits ordinateurs portables (<= 1024px) */
+@media (max-width: 1024px) {
   .hero-grid {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2.75rem;
   }
 
   .hero-visual {
-    max-width: 560px;
+    max-width: 600px;
     margin-inline: auto;
     width: 100%;
   }
 
-  .hero-floating-card {
-    left: 1rem;
-    top: 1rem;
+  .team-grid {
+    grid-template-columns: 1fr;
+    max-width: 620px;
+    margin-inline: auto;
   }
 
   .about-layout {
@@ -44,14 +107,21 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .events-empty-card {
+  .resources-grid {
     grid-template-columns: 1fr;
   }
 
-  .team-grid {
+  .survey-grid {
     grid-template-columns: 1fr;
-    max-width: 620px;
-    margin-inline: auto;
+    gap: 2.5rem;
+  }
+
+  .survey-visual {
+    order: -1;
+  }
+
+  .survey-illustration-card {
+    max-width: 420px;
   }
 
   .contact-card {
@@ -63,89 +133,18 @@
   }
 }
 
-/* Mobiles & Tablettes portrait (<= 860px) */
-@media (max-width: 860px) {
-  :root {
-    --header-height: 72px;
-  }
-
-  .menu-toggle {
-    display: inline-flex;
-  }
-
-  .main-nav {
-    position: fixed;
-    top: var(--header-height);
-    left: 0;
-    right: 0;
-    background-color: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border-medium);
-    box-shadow: var(--shadow-lg);
-    padding: 1.75rem var(--container-padding) 2.25rem;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1.5rem;
-    transform: translateY(-12px);
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: transform var(--transition-base), opacity var(--transition-base), visibility var(--transition-base);
-  }
-
-  .main-nav.is-open {
-    transform: translateY(0);
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
-
-  .nav-list {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.35rem;
-    width: 100%;
-  }
-
-  .nav-list li {
-    width: 100%;
-  }
-
-  .nav-link {
-    display: block;
-    width: 100%;
-    font-size: 1.12rem;
-    padding: 0.75rem 0.5rem;
-    border-bottom: 1px solid var(--border-light);
-  }
-
-  .nav-link::after {
-    display: none;
-  }
-
-  .participate-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .gallery-masonry {
-    columns: 2 220px;
-  }
-
-  .gallery-overlay {
-    opacity: 1;
-    background: linear-gradient(180deg, rgba(21, 16, 38, 0) 52%, rgba(21, 16, 38, 0.72) 100%);
-  }
-}
-
 /* Smartphones (<= 640px) */
 @media (max-width: 640px) {
   .brand-sub {
     display: none;
   }
 
+  .brand-aepud-logo {
+    height: 34px;
+  }
+
   .hero {
-    padding-top: 1.75rem;
+    padding-top: 1.65rem;
   }
 
   .hero-actions {
@@ -157,10 +156,17 @@
     width: 100%;
   }
 
-  .hero-floating-card {
-    position: static;
-    max-width: 100%;
-    margin-bottom: 1rem;
+  .hero-survey-nudge {
+    width: 100%;
+  }
+
+  .rep-portrait-wrap {
+    min-height: 290px;
+    aspect-ratio: 4 / 4.2;
+  }
+
+  .rep-info {
+    padding: 1.6rem;
   }
 
   .pillar-card {
@@ -181,36 +187,43 @@
     padding: 1.65rem;
   }
 
+  .activities-banner-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .activities-banner-actions .btn {
+    width: 100%;
+  }
+
   .events-grid {
     grid-template-columns: 1fr;
   }
 
-  .rep-card {
-    grid-template-columns: 1fr;
+  .resource-card {
+    padding: 1.55rem;
   }
 
-  .rep-portrait-wrap {
-    min-height: 300px;
-    aspect-ratio: 4 / 4.2;
+  .resources-help-strip {
+    padding: 1.4rem;
   }
 
-  .rep-info {
-    padding: 1.6rem;
+  .btn--survey-cta {
+    width: 100%;
+    text-align: center;
+    padding-inline: 1.25rem;
   }
 
-  .gallery-masonry {
-    columns: 1;
+  .contact-cta-group {
+    flex-direction: column;
+  }
+
+  .contact-cta-group .btn {
+    width: 100%;
   }
 
   .footer-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
-  }
-
-  .lightbox-prev { left: 0.4rem; }
-  .lightbox-next { right: 0.4rem; }
-  .lightbox-nav {
-    width: 40px;
-    height: 40px;
   }
 }

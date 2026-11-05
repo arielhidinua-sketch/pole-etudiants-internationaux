@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 400" fill="none" role="img" aria-label="Illustration participative — Fais-nous entendre ta voix">
+  <defs>
+    <linearGradient id="cardGlass" x1="0" y1="0" x2="460" y2="400" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#EDE9FE" stop-opacity="0.06"/>
+    </linearGradient>
+    <linearGradient id="accentGold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Cadre lumineux -->
+  <rect x="18" y="18" width="424" height="364" rx="28" fill="url(#cardGlass)" stroke="#C4B5FD" stroke-opacity="0.32" stroke-width="1.5"/>
+
+  <!-- Ondes sonores / Voix étudiante -->
+  <circle cx="230" cy="195" r="138" stroke="#C4B5FD" stroke-opacity="0.16" stroke-width="1.5" stroke-dasharray="6 6"/>
+  <circle cx="230" cy="195" r="98" stroke="#DDD6FE" stroke-opacity="0.24" stroke-width="1.5"/>
+
+  <!-- Carte Questionnaire centrale -->
+  <rect x="116" y="64" width="228" height="272" rx="22" fill="#FFFFFF"/>
+  <rect x="142" y="92" width="96" height="10" rx="5" fill="#6D28D9"/>
+  <rect x="142" y="110" width="154" height="7" rx="3.5" fill="#DDD6FE"/>
+
+  <!-- Lignes de sujets clés cochés -->
+  <!-- Item 1 : Logement -->
+  <rect x="142" y="138" width="176" height="36" rx="10" fill="#F5F3FF"/>
+  <circle cx="162" cy="156" r="9" fill="#5B21B6"/>
+  <path d="M158 156 L161 159 L167 153" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="180" y="152" width="112" height="8" rx="4" fill="#2E1065"/>
+
+  <!-- Item 2 : Démarches & Intégration -->
+  <rect x="142" y="184" width="176" height="36" rx="10" fill="#F5F3FF"/>
+  <circle cx="162" cy="202" r="9" fill="#6D28D9"/>
+  <path d="M158 202 L161 205 L167 199" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="180" y="198" width="122" height="8" rx="4" fill="#2E1065"/>
+
+  <!-- Item 3 : Études, Stages & Alternance -->
+  <rect x="142" y="230" width="176" height="36" rx="10" fill="#FEF3C7"/>
+  <circle cx="162" cy="248" r="9" fill="url(#accentGold)"/>
+  <path d="M158 248 L161 251 L167 245" stroke="#1E1038" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="180" y="244" width="98" height="8" rx="4" fill="#78350F"/>
+
+  <!-- Bouton d'envoi symbolique -->
+  <rect x="142" y="282" width="176" height="32" rx="16" fill="#4C1D95"/>
+  <rect x="192" y="294" width="76" height="8" rx="4" fill="#FFFFFF"/>
+
+  <!-- Bulle flottante Porte-voix / Expression -->
+  <g>
+    <circle cx="352" cy="98" r="34" fill="url(#accentGold)"/>
+    <path d="M339 101 L347 95 L359 88 V108 L347 101 H339 V101 Z" fill="#1E0B3E"/>
+    <path d="M364 92 C367 95, 367 101, 364 104" stroke="#1E0B3E" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M368 88 C373 93, 373 103, 368 108" stroke="#1E0B3E" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+
+  <!-- Bulle flottante Idées & Communauté -->
+  <g>
+    <rect x="52" y="256" width="94" height="54" rx="16" fill="#7C3AED" stroke="#DDD6FE" stroke-width="1.5"/>
+    <circle cx="78" cy="283" r="12" fill="#EDE9FE"/>
+    <path d="M78 276 V290 M71 283 H85" stroke="#4C1D95" stroke-width="2.4" stroke-linecap="round"/>
+    <rect x="98" y="276" width="34" height="6" rx="3" fill="#FFFFFF"/>
+    <rect x="98" y="287" width="24" height="5" rx="2.5" fill="#DDD6FE"/>
+  </g>
+</svg>
