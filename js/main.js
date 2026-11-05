@@ -40,7 +40,7 @@
 
   function loadTeamState() {
     try {
-      const saved = sessionStorage.getItem("pole_team_preview");
+      const saved = sessionStorage.getItem("pole_team_preview_v2");
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length === 2) {
@@ -58,6 +58,13 @@
     return dict[key] !== undefined ? dict[key] : (translations.fr[key] || key);
   }
 
+  function resolveLocalizedValue(val) {
+    if (val && typeof val === "object") {
+      return val[state.lang] || val.fr || "";
+    }
+    return val || "";
+  }
+
   function escapeHtml(str) {
     return String(str)
       .replace(/&/g, "&amp;")
@@ -68,8 +75,9 @@
   }
 
   function isPlaceholderValue(val) {
-    if (!val) return true;
-    const trimmed = String(val).trim();
+    const resolved = resolveLocalizedValue(val);
+    if (!resolved) return true;
+    const trimmed = String(resolved).trim();
     return (
       trimmed === "" ||
       trimmed === "[À RENSEIGNER]" ||
@@ -80,7 +88,8 @@
   }
 
   function formatDisplayValue(val) {
-    return isPlaceholderValue(val) ? t("placeholderText") : val;
+    const resolved = resolveLocalizedValue(val);
+    return isPlaceholderValue(resolved) ? t("placeholderText") : resolved;
   }
 
   /* --------------------------------------------------------------------------
@@ -350,8 +359,14 @@
         const repLabel = idx === 0 ? t("teamRepLabel1") : t("teamRepLabel2");
         const displayName = formatDisplayValue(member.name);
         const displayBio = formatDisplayValue(member.bio);
+        const bioParagraphsHtml = String(displayBio)
+          .split(/\n\s*\n/)
+          .filter(Boolean)
+          .map((para) => `<p>${escapeHtml(para.trim())}</p>`)
+          .join("");
         const roleText = member.customRole ? member.customRole : t(member.roleKey || "teamRoleDefault");
         const photoSrc = member.photo || `assets/images/portrait-placeholder-${idx + 1}.svg`;
+        const posStyle = member.photoPosition ? ` style="object-position: ${escapeHtml(member.photoPosition)};"` : "";
         const showSlotBadge = Boolean(member.isPlaceholderPhoto);
 
         return `
@@ -360,7 +375,7 @@
               <img
                 src="${escapeHtml(photoSrc)}"
                 alt="${escapeHtml(repLabel)} — ${escapeHtml(displayName)}"
-                class="rep-portrait"
+                class="rep-portrait"${posStyle}
                 loading="lazy"
               >
               ${showSlotBadge ? `<span class="rep-slot-badge">${escapeHtml(t("teamSlotBadge"))}</span>` : ""}
@@ -371,7 +386,7 @@
                 <h3 class="rep-name">${escapeHtml(displayName)}</h3>
                 <span class="rep-role">${escapeHtml(roleText)}</span>
                 <span class="rep-bio-label">${escapeHtml(t("teamBioLabel"))}</span>
-                <p class="rep-bio">${escapeHtml(displayBio)}</p>
+                <div class="rep-bio">${bioParagraphsHtml}</div>
               </div>
               <div class="rep-footer">
                 <span class="rep-contact-label">${escapeHtml(t("teamContactLabel"))}</span>
@@ -402,8 +417,9 @@
       state.activeRepTab = index;
       tabBtns.forEach((b, i) => b.classList.toggle("is-active", i === index));
       const rep = state.teamData[index];
+      const currentBio = resolveLocalizedValue(rep.bio);
       nameInput.value = isPlaceholderValue(rep.name) ? "" : rep.name;
-      bioInput.value = isPlaceholderValue(rep.bio) ? "" : rep.bio;
+      bioInput.value = isPlaceholderValue(currentBio) ? "" : currentBio;
       contactInput.value = isPlaceholderValue(rep.contact) ? "" : rep.contact;
       if (photoFileInput) photoFileInput.value = "";
     }
@@ -411,7 +427,12 @@
     function saveCurrentTabFields() {
       const rep = state.teamData[state.activeRepTab];
       rep.name = nameInput.value.trim() || "[À RENSEIGNER]";
-      rep.bio = bioInput.value.trim() || "[À RENSEIGNER]";
+      const nextBioText = bioInput.value.trim() || "[À RENSEIGNER]";
+      if (rep.bio && typeof rep.bio === "object") {
+        rep.bio[state.lang] = nextBioText;
+      } else {
+        rep.bio = nextBioText;
+      }
       rep.contact = contactInput.value.trim() || "[À RENSEIGNER]";
     }
 
@@ -448,7 +469,7 @@
       applyBtn.addEventListener("click", () => {
         saveCurrentTabFields();
         try {
-          sessionStorage.setItem("pole_team_preview", JSON.stringify(state.teamData));
+          sessionStorage.setItem("pole_team_preview_v2", JSON.stringify(state.teamData));
         } catch (_) {
           /* Ignorer quota si image lourde */
         }
@@ -464,6 +485,7 @@
         const exportTeam = state.teamData.map((m, idx) => ({
           id: m.id,
           photo: m.suggestedFileName || (m.photo.startsWith("data:") ? `assets/images/rep-${idx + 1}.jpg` : m.photo),
+          photoPosition: m.photoPosition || "center 50%",
           isPlaceholderPhoto: Boolean(m.isPlaceholderPhoto),
           name: m.name,
           roleKey: "teamRoleDefault",
@@ -478,7 +500,7 @@
     if (resetBtn) {
       resetBtn.addEventListener("click", () => {
         state.teamData = JSON.parse(JSON.stringify(config.team));
-        sessionStorage.removeItem("pole_team_preview");
+        sessionStorage.removeItem("pole_team_preview_v2");
         populateEditorFields(state.activeRepTab);
         renderTeamSection();
       });

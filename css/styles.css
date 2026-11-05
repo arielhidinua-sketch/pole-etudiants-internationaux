@@ -1176,8 +1176,8 @@ ul {
   border: 1px solid var(--border-light);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  display: grid;
-  grid-template-columns: 0.92fr 1.08fr;
+  display: flex;
+  flex-direction: column;
   box-shadow: var(--shadow-sm);
   transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
 }
@@ -1190,8 +1190,10 @@ ul {
 
 .rep-portrait-wrap {
   position: relative;
-  min-height: 360px;
+  width: 100%;
+  aspect-ratio: 4 / 4.15;
   background-color: var(--accent-50);
+  border-bottom: 1px solid var(--border-light);
   overflow: hidden;
 }
 
@@ -1199,6 +1201,7 @@ ul {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 50%;
   transition: transform var(--transition-slow);
 }
 
@@ -1223,11 +1226,12 @@ ul {
 }
 
 .rep-info {
-  padding: 2.15rem;
+  padding: 2.25rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 1.25rem;
+  gap: 1.5rem;
+  flex: 1;
 }
 
 .rep-index {
@@ -1273,9 +1277,13 @@ ul {
 }
 
 .rep-bio {
-  font-size: 0.94rem;
+  font-size: 0.95rem;
   color: var(--text-secondary);
-  line-height: 1.65;
+  line-height: 1.7;
+}
+
+.rep-bio p + p {
+  margin-top: 0.85rem;
 }
 
 .rep-footer {

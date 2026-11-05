@@ -31,30 +31,40 @@ window.SITE_CONFIG = {
     association: "Association des Étudiants (AEPUD) — IUT de Saint-Dié",
     pole: "Pôle des Étudiants Internationaux",
     email: "[À RENSEIGNER]",
-    instagram: "[À RENSEIGNER]",
+    instagram: "@AEPUD",
     otherNetwork: "[À RENSEIGNER]",
     location: "IUT de Saint-Dié-des-Vosges · 11 Rue de l’Université, 88100 Saint-Dié-des-Vosges"
   },
 
-  // Les 2 représentants du Pôle (remplacez photo, nom, bio et contact facilement)
+  // Les 2 représentants du Pôle
   team: [
     {
       id: "rep-1",
-      photo: "assets/images/portrait-placeholder-1.svg",
-      isPlaceholderPhoto: true,
-      name: "[À RENSEIGNER]",
+      photo: "assets/images/ariel-hidinua.jpg",
+      photoPosition: "center 78%",
+      isPlaceholderPhoto: false,
+      name: "Ariel Hidinua",
       roleKey: "teamRoleDefault",
-      bio: "[À RENSEIGNER]",
-      contact: "[À RENSEIGNER]"
+      bio: {
+        fr: "Étudiant angolais en BUT GEII à l’IUT de Saint-Dié, Ariel a obtenu une bourse d’excellence lui permettant de poursuivre ses études en France. Ancien président du pôle académique de l’association des élèves du lycée Eiffel d’Ondjiva et membre du pôle Génie de la Production Industrielle de l’ISPTEC, il possède une expérience en leadership étudiant. Il s’investit également dans l’entrepreneuriat social à travers Serenus, un projet dédié à la santé mentale bénéficiant d’un accompagnement dans l’écosystème de l’UNICEF.\n\nAujourd’hui, il souhaite mettre son expérience et son engagement au service de la communauté internationale de l’IUT.",
+        en: "An Angolan student in BUT GEII (Electrical Engineering and Industrial Computing) at IUT de Saint-Dié, Ariel was awarded an excellence scholarship to pursue his studies in France. Former president of the academic hub of the student association at Lycée Eiffel of Ondjiva and a member of the Industrial Production Engineering hub at ISPTEC, he brings solid experience in student leadership. He is also committed to social entrepreneurship through Serenus, a mental health initiative supported within the UNICEF ecosystem.\n\nToday, he aims to put his experience and commitment at the service of the IUT’s international community.",
+        pt: "Estudante angolano em BUT GEII no IUT de Saint-Dié, Ariel obteve uma bolsa de excelência que lhe permitiu prosseguir os estudos em França. Antigo presidente do polo académico da associação de estudantes do Liceu Eiffel de Ondjiva e membro do polo de Engenharia de Produção Industrial do ISPTEC, possui sólida experiência em liderança estudantil. Dedica-se também ao empreendedorismo social através da Serenus, um projeto dedicado à saúde mental acompanhado no ecossistema da UNICEF.\n\nAtualmente, deseja colocar a sua experiência e o seu compromisso ao serviço da comunidade internacional do IUT."
+      },
+      contact: "@AEPUD"
     },
     {
       id: "rep-2",
-      photo: "assets/images/portrait-placeholder-2.svg",
-      isPlaceholderPhoto: true,
-      name: "[À RENSEIGNER]",
+      photo: "assets/images/credo-charles.jpg",
+      photoPosition: "center 80%",
+      isPlaceholderPhoto: false,
+      name: "Credo Charles",
       roleKey: "teamRoleDefault",
-      bio: "[À RENSEIGNER]",
-      contact: "[À RENSEIGNER]"
+      bio: {
+        fr: "Étudiant en Génie Électrique et Informatique Industrielle en France, lauréat d’une bourse d’excellence en 2024. Passionné par l’automatisation industrielle et les systèmes électriques. Ancien président de l’association des élèves du Lycée Eiffel d’Ondjiva et actuellement représentant des étudiants internationaux à l’IUT de Saint-Dié-des-Vosges. Doté d’un esprit de leadership, d’adaptation et de travail en équipe, je suis motivé par l’apprentissage et les nouveaux défis.",
+        en: "A student in Electrical Engineering and Industrial Computing (GEII) in France and recipient of a 2024 excellence scholarship. Passionate about industrial automation and electrical systems. Former president of the student association at Lycée Eiffel of Ondjiva and currently International Students Representative at IUT de Saint-Dié-des-Vosges. Driven by leadership, adaptability, and teamwork, I am motivated by continuous learning and new challenges.",
+        pt: "Estudante de Engenharia Eletrotécnica e Informática Industrial em França, bolseiro de excelência em 2024. Apaixonado por automação industrial e sistemas elétricos. Antigo presidente da associação de estudantes do Liceu Eiffel de Ondjiva e atualmente representante dos estudantes internacionais no IUT de Saint-Dié-des-Vosges. Dotado de espírito de liderança, adaptação e trabalho em equipa, sou motivado pela aprendizagem e por novos desafios."
+      },
+      contact: "@AEPUD"
     }
   ],
 
@@ -346,7 +356,8 @@ window.TRANSLATIONS = {
     formModalCloseBtn: "Fermer",
 
     contactModalTitle: "Contacter le Pôle International",
-    contactModalPending: "L’adresse e-mail officielle et le compte Instagram sont actuellement marqués [À RENSEIGNER] dans js/content.js. Dès qu’ils seront complétés, ce bouton ouvrira directement votre messagerie.",
+    contactModalPending: "Vous pouvez dès maintenant nous écrire directement via le compte Instagram officiel de l’association (@AEPUD). L’adresse e-mail dédiée sera ajoutée prochainement.",
+    contactModalInstaBtn: "Écrire sur Instagram (@AEPUD)",
     contactCopySuccess: "Adresse e-mail copiée dans le presse-papiers !",
 
     teamModalTitle: "Personnaliser les représentants",
@@ -532,7 +543,8 @@ window.TRANSLATIONS = {
     formModalCloseBtn: "Close",
 
     contactModalTitle: "Contact the International Hub",
-    contactModalPending: "The official email address and Instagram handle are currently set to [À RENSEIGNER] in js/content.js. Once filled in, this button will directly launch your email client.",
+    contactModalPending: "You can reach out to us right now via the association’s official Instagram account (@AEPUD). Our dedicated email address will be added soon.",
+    contactModalInstaBtn: "Message on Instagram (@AEPUD)",
     contactCopySuccess: "Email address copied to clipboard!",
 
     teamModalTitle: "Customize Representatives",
@@ -685,7 +697,8 @@ window.TRANSLATIONS = {
     formModalOpenBtn: "Guardar e Abrir Formulário",
     formModalCloseBtn: "Fechar",
     contactModalTitle: "Contactar o Pôle Internacional",
-    contactModalPending: "O endereço de e-mail oficial encontra-se como [À RENSEIGNER] em js/content.js. Assim que preenchido, este botão abrirá diretamente o seu cliente de e-mail.",
+    contactModalPending: "Já pode contactar-nos diretamente através do Instagram oficial da associação (@AEPUD). O endereço de e-mail dedicado será adicionado em breve.",
+    contactModalInstaBtn: "Enviar mensagem no Instagram (@AEPUD)",
     contactCopySuccess: "E-mail copiado!",
     teamModalTitle: "Personalizar representantes",
     teamModalDesc: "Pré-visualize retratos e biografias na página e copie a configuração para js/content.js.",
