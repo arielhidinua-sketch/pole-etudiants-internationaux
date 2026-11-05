@@ -1,0 +1,16 @@
+# Dependências e ferramentas locais
+node_modules/
+.vercel/
+
+# Ficheiros de ambiente e segredos
+.env
+.env.*
+!.env.example
+
+# Ficheiros temporários do sistema operativo e editores
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+.vscode/
+.idea/

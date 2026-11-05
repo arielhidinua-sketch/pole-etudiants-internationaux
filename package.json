@@ -1,0 +1,14 @@
+{
+  "name": "pole-etudiants-internationaux",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Landing page officielle du Pôle des Étudiants Internationaux — Association des Étudiants (AEPUD) · IUT de Saint-Dié",
+  "scripts": {
+    "dev": "npx serve . -l 3000",
+    "build": "node --check js/content.js && node --check js/main.js",
+    "start": "npx serve . -l 3000"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

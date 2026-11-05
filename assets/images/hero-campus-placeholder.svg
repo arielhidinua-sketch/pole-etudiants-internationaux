@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1080" fill="none">
+  <defs>
+    <linearGradient id="heroGrad" x1="0" y1="0" x2="900" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2E1065"/>
+      <stop offset="55%" stop-color="#4C1D95"/>
+      <stop offset="100%" stop-color="#6D28D9"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0.8" cy="0.2" r="0.6">
+      <stop offset="0%" stop-color="#C4B5FD" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#C4B5FD" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="900" height="1080" fill="url(#heroGrad)"/>
+  <rect width="900" height="1080" fill="url(#glow1)"/>
+  <!-- Architectural Campus Archways & Vosges Horizon -->
+  <circle cx="450" cy="470" r="250" stroke="#DDD6FE" stroke-opacity="0.22" stroke-width="2"/>
+  <circle cx="450" cy="470" r="185" stroke="#DDD6FE" stroke-opacity="0.32" stroke-width="2"/>
+  <ellipse cx="450" cy="470" rx="92" ry="185" stroke="#FFFFFF" stroke-opacity="0.35" stroke-width="2"/>
+  <path d="M265 470 H635 M290 400 H610 M290 540 H610" stroke="#FFFFFF" stroke-opacity="0.25" stroke-width="2"/>
+  <!-- Abstract Student Silhouettes in Conversation -->
+  <g fill="#F5F3FF" fill-opacity="0.92">
+    <circle cx="330" cy="690" r="42"/>
+    <path d="M250 860 C250 790 285 752 330 752 C375 752 410 790 410 860 Z"/>
+    <circle cx="455" cy="665" r="46"/>
+    <path d="M365 860 C365 782 405 738 455 738 C505 738 545 782 545 860 Z" fill="#EDE9FE"/>
+    <circle cx="575" cy="695" r="40"/>
+    <path d="M500 860 C500 794 532 756 575 756 C618 756 650 794 650 860 Z"/>
+  </g>
+  <path d="M0 900 Q225 830 450 885 T900 855 L900 1080 L0 1080 Z" fill="#1E1042" fill-opacity="0.55"/>
+</svg>
